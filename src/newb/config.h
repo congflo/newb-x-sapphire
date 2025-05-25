@@ -189,7 +189,7 @@
 #define SUN_REFL 0.5
  
 /* Fake godrays during sunrise/sunset */
-#define NL_GODRAY 0.4 // [toggle] 0.1 subtle ~ 0.8 strong
+//#define NL_GODRAY 0.4 // [toggle] 0.1 subtle ~ 0.8 strong
 
 /* Sky reflection */
 #define NL_GROUND_REFL 0.05       // [toggle] 0.2 slightly reflective ~ 1.0 fully reflect sky 
