@@ -1,5 +1,5 @@
-name = "Newb X Sapphire Renewed"
-version = [0, 1, 3]
+name = "Newb X Sapphire EX"
+version = [0, 0, 0]
 min_supported_mc_version = [1, 21, 20]
 description = '''
 §c%w
@@ -9,7 +9,7 @@ description = '''
 ''' # %w = patch warning, %v = version
 authors = ["amg, devendrn"]
 url = "https://devendrn.github.io/newb-shader/"
-uuid = "36eed18f-e0d6-4c46-abbb-6771ec68301d" # Use https://www.uuidgenerator.net/version4
+uuid = "a141cbbf-9e6a-40d0-96eb-7ee3a1f1ffab" # Use https://www.uuidgenerator.net/version4
 materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "SunMoon", "Weather", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
 
 [info] 
@@ -28,27 +28,7 @@ credits = '''
 # subpacks are arranged in left to right order
 # right-most subpack is enabled by default
 
-[[subpack]]
-define = "VANILLA_CLOUD_NORMALMAP"
-materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
-description = '''
-Vanilla Cloud + Fake normalmapping 
-'''
 
-[[subpack]]
-define = "VANILLA_CLOUD"
-materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
-description = '''
-Vanilla Cloud 
-+disable heavy features for low end device 
-'''
-
-[[subpack]]
-define = "VOLUMETRIC_CLOUDS_NORMALMAP"
-materials = ["Clouds", "RenderChunk", "SunMoon"]
-description = '''
-Volumetric Clouds + Fake normalmapping
-'''
 
 [[subpack]]
 define = "VOLUMETRIC_CLOUDS"
@@ -56,12 +36,7 @@ materials = ["Clouds", "RenderChunk", "SunMoon"]
 description = '''
 Volumetric Clouds
 '''
-[[subpack]]
-define = "DEFAULT_NORMALMAP"
-materials = ["RenderChunk"]
-description = '''
-Fake normalmapping
-'''
+
 
 [[subpack]]
 define = "DEFAULT"

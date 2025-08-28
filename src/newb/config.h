@@ -226,14 +226,14 @@
   Subpack names and flags are inside `pack_config.toml`.
   Build tool will enable corresponding flags when compiling. 
 */
-
+/*
 #ifdef DEFAULT_NORMALMAP
 #define NORMALMAP
 #endif
-
+*/
 #ifdef VOLUMETRIC_CLOUDS
  #undef NL_CLOUD_TYPE
- #define NL_CLOUD_TYPE 3
+ #define NL_CLOUD_TYPE 4
  #undef NL_SUNMOON_SIZE
  #define NL_SUNMOON_SIZE 0.7
  #undef SUN_BLOOM
@@ -245,7 +245,7 @@
  #undef NL_AURORA
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
-
+/*
 #ifdef VOLUMETRIC_CLOUDS_NORMALMAP
  #define NORMALMAP
  #undef NL_CLOUD_TYPE
@@ -319,5 +319,6 @@
  #undef NL_LAVA_NOISE
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
+*/
 
 #endif

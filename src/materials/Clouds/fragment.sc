@@ -9,6 +9,63 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
 
+float fbm(vec3 p, float t, float rain) {
+  float f = 0.0;
+  float amp = 0.5;
+  for (int i = 0; i <= 5; i++) {
+    f += amp * noise3D(p + 0.01*t);
+    p *= 3.0;
+    amp *= mix(0.45, 0.5, rain) ;
+  }
+  return smoothstep(0.1,0.8,f + 0.2/4.0);
+}
+
+vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
+    time *= 0.15;
+    float dusk = max(FogColor.r - FogColor.b, 0.0);
+    float cloudBase = 0.8;
+    float cloudTop = 1.2;
+    int steps = 6;
+    float stepSize = (cloudTop - cloudBase) / float(steps);
+
+    float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
+    vec3 cloudAccum = vec3_splat(0.0);
+    float alphaAccum = 0.0;
+
+
+    for (int i = 0; i <= steps ; i++) {
+        float height = cloudBase + stepSize * (float(i) + fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453) );
+        float t = 1.1*height / abs(viewDir.y);
+        vec3 pos = viewDir * t ;
+
+        vec3 noisePos = vec3(pos.xz + time * 0.05, height*0.85);
+        float base = fbm(noisePos, time, rain);
+
+        float heightNorm = (height - cloudBase) / (cloudTop - cloudBase);
+        float heightFactor = smoothstep(0.0, 1.0, heightNorm) * (1.0 - smoothstep(0.8, 1.0, heightNorm));
+        heightFactor *= smoothstep(0.2, 0.6, base);
+
+        float density = 1.5*clamp(base - 0.5, 0.0, 1.0);
+        density = pow(density, 3.0) * heightFactor;
+
+        float alpha = 1.0 - smoothstep(0.0085, 0.0015, density);
+        alpha *= (1.0 - alphaAccum);
+
+       float scattering = smoothstep(0.0+0.2*dusk, 0.7+0.3*dusk, heightNorm);
+
+        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5, 1.0,dusk))+horizon) , mix(horizon, zenith, 0.7)*0.8, 1.0-scattering);
+
+        cloudAccum += cloudColor * alpha;
+        alphaAccum += alpha;
+
+        if (alphaAccum > 0.98 && viewDir.y < 0.9) break;
+    }
+    vec4 clouds = vec4(mix(0.6*(mix(horizon, zenith, 0.1+0.5*dusk)+horizon), cloudAccum, alphaAccum), alphaAccum);
+      clouds.rgb *= 1.0-0.1*rain;
+
+      return clouds;
+}
+    
 #define NL_CLOUD_PARAMS(x) NL_CLOUD2##x##STEPS, NL_CLOUD2##x##THICKNESS, NL_CLOUD2##x##RAIN_THICKNESS, NL_CLOUD2##x##VELOCITY, NL_CLOUD2##x##SCALE, NL_CLOUD2##x##DENSITY, NL_CLOUD2##x##SHAPE
 
 void main() {
@@ -44,7 +101,7 @@ void main() {
       color.a *= smoothstep(-0.1, -0.6, vDir.y);
       }
       
-    #else
+    #elif NL_CLOUD_TYPE == 3
       vDir.xz *= 0.3 + v_color0.w; // height parallax
      float a = 0.8; // or -ve
      float cosa = cos(a); float sina = sin(a);
@@ -73,8 +130,13 @@ void main() {
       #endif
 
       color.a *= smoothstep(0.0, 0.6, vDir.y);
+    #else
+    vec3 wpos = vDir/abs(vDir.y);
+    float fade = smoothstep(22.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
+    color = VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
+    color.a *= fade;
     #endif
-
+    
     color.rgb = colorCorrection(color.rgb);
   #endif
 

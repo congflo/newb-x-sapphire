@@ -15,7 +15,7 @@ float nlRenderFogFade(float relativeDist, vec3 FOG_COLOR, vec2 FOG_CONTROL) {
   #endif
 }
 
-float nlRenderGodRayIntensity(vec3 cPos, vec3 worldPos, float t, vec2 uv1, float relativeDist, vec3 FOG_COLOR) {
+float nlRenderGodRayIntensity(vec3 cPos, vec3 worldPos, float t, vec2 uv1, float relativeDist, vec3 FOG_COLOR, vec2 FOG_CONTROL) {
   float a = -1.6; // or -ve
   float cosa = cos(a); float sina = sin(a); 
   // offset wPos (only works upto 16 blocks)
@@ -29,8 +29,8 @@ float nlRenderGodRayIntensity(vec3 cPos, vec3 worldPos, float t, vec2 uv1, float
   //offset = 0.5 + 0.5*cos(offset*0.392699082);
 
   //vec3 ofPos = wPos+offset;
-  vec3 nrmof = normalize(worldPos);
-
+  vec3 nrmof = worldPos/worldPos.y;
+  //nrmof *= nrmof/(nrmof+FOG_CONTROL.x);
   float u = nrmof.z/length(nrmof.zy);
   float diff = dot(offset,vec3(0.1,0.2,1.0)) + 0.07*t;
   float mask = nrmof.x*nrmof.x;

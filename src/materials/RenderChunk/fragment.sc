@@ -316,7 +316,7 @@ if(!env.end){
     float relativeDist = camDis / FogAndDistanceControl.z;
 
   #ifdef NL_GODRAY
-    float godray = NL_GODRAY*nlRenderGodRayIntensity(v_position.xyz, v_worldPos.xyz, ViewPositionAndTime.w, v_lightmapUV, relativeDist, fogColor.rgb); 
+    float godray = NL_GODRAY*nlRenderGodRayIntensity(v_position.xyz, v_worldPos.xyz, ViewPositionAndTime.w, v_lightmapUV, relativeDist, fogColor.rgb, FogAndDistanceControl.xy); 
     diffuse.rgb += NL_GODRAY*fogColor.rgb * godray;
     //fogColor.a = mix(fogColor.a, 1.0, godray);
   #endif
