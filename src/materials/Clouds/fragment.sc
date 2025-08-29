@@ -9,12 +9,17 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
 
+  #define V_CLOUD_STEPS -1 //affect performance, recommend 8
+  #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
+  #define V_CLOUD_DETAIL 3.0
+  #define V_CLOUD_HEIGHT 1.1
+  
 float fbm(vec3 p, float t, float rain) {
   float f = 0.0;
   float amp = 0.5;
-  for (int i = 0; i <= 5; i++) {
+  for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
     f += amp * noise3D(p + 0.01*t);
-    p *= 3.0;
+    p *= V_CLOUD_DETAIL;
     amp *= mix(0.45, 0.5, rain) ;
   }
   return smoothstep(0.1,0.8,f + 0.2/4.0);
@@ -25,18 +30,20 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     float dusk = max(FogColor.r - FogColor.b, 0.0);
     float cloudBase = 0.8;
     float cloudTop = 1.2;
-    int steps = 6;
+    int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
 
     float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
     vec3 cloudAccum = vec3_splat(0.0);
+    vec3 rayOrigin = vec3_splat(0.0);
     float alphaAccum = 0.0;
+    
 
 
     for (int i = 0; i <= steps ; i++) {
         float height = cloudBase + stepSize * (float(i) + fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453) );
-        float t = 1.1*height / abs(viewDir.y);
-        vec3 pos = viewDir * t ;
+        float t = V_CLOUD_HEIGHT*height / abs(viewDir.y);
+        vec3 pos = rayOrigin + viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + time * 0.05, height*0.85);
         float base = fbm(noisePos, time, rain);
@@ -131,9 +138,12 @@ void main() {
 
       color.a *= smoothstep(0.0, 0.6, vDir.y);
     #else
+    color = vec4_splat(0.0);
     vec3 wpos = vDir/abs(vDir.y);
-    float fade = smoothstep(22.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
-    color = VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
+    float fade = smoothstep(18.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
+    if(wpos.y > 0.0){
+    color += VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
+    }
     color.a *= fade;
     #endif
     
