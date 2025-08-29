@@ -43,7 +43,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         vec3 pos = viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + time * 0.05, height*0.85);
-        hp float base = fbm(noisePos, time, rain);
+        float base = fbm(noisePos, time, rain);
 
         float heightNorm = (height - cloudBase) / (cloudTop - cloudBase);
         float heightFactor = smoothstep(0.0, 1.0, heightNorm) * (1.0 - smoothstep(0.8, 1.0, heightNorm));
