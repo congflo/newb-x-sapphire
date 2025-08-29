@@ -35,18 +35,15 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
 
     float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
     vec3 cloudAccum = vec3_splat(0.0);
-    vec3 rayOrigin = vec3_splat(0.0);
     float alphaAccum = 0.0;
-    
-
-
+    float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
-        float height = cloudBase + stepSize * (float(i) + fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453) );
+        float height = cloudBase + stepSize * (float(i)+jitter);
         float t = V_CLOUD_HEIGHT*height / abs(viewDir.y);
-        vec3 pos = rayOrigin + viewDir * t ;
+        vec3 pos = viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + time * 0.05, height*0.85);
-        float base = fbm(noisePos, time, rain);
+        hp float base = fbm(noisePos, time, rain);
 
         float heightNorm = (height - cloudBase) / (cloudTop - cloudBase);
         float heightFactor = smoothstep(0.0, 1.0, heightNorm) * (1.0 - smoothstep(0.8, 1.0, heightNorm));
@@ -60,7 +57,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
 
        float scattering = smoothstep(0.0+0.2*dusk, 0.7+0.3*dusk, heightNorm);
 
-        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5, 1.0,dusk))+horizon) , mix(horizon, zenith, 0.7)*0.8, 1.0-scattering);
+        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5, 1.0,dusk))+horizon) , mix(horizon, zenith, 1.0)*0.99, 1.0-scattering);
 
         cloudAccum += cloudColor * alpha;
         alphaAccum += alpha;
@@ -140,7 +137,7 @@ void main() {
     #else
     color = vec4_splat(0.0);
     vec3 wpos = vDir/abs(vDir.y);
-    float fade = smoothstep(18.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
+    float fade = smoothstep(25.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
     if(wpos.y > 0.0){
     color += VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
     }
