@@ -9,7 +9,7 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
 
-  #define V_CLOUD_STEPS 16 //affect performance, recommend 8
+  #define V_CLOUD_STEPS 8 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
   #define V_CLOUD_DETAIL 3.0
   #define V_CLOUD_HEIGHT 1.1
@@ -36,8 +36,8 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
     vec3 cloudAccum = vec3_splat(0.0);
     float alphaAccum = 0.0;
-    float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
+        float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
         float height = cloudBase + stepSize * (float(i)+jitter);
         float t = V_CLOUD_HEIGHT*height / abs(viewDir.y);
         vec3 pos = viewDir * t ;
@@ -57,7 +57,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
 
        float scattering = smoothstep(0.0+0.2*dusk, 0.7+0.3*dusk, heightNorm);
 
-        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5, 1.0,dusk))+horizon) , mix(horizon, zenith, 1.0)*0.99, 1.0-scattering);
+        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5, 1.0,dusk))+horizon) , mix(horizon, zenith, 0.8)*0.99, 1.0-scattering);
 
         cloudAccum += cloudColor * alpha;
         alphaAccum += alpha;
