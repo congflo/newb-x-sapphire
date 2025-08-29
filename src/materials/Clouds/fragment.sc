@@ -29,16 +29,16 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     time *= 0.15;
     float dusk = max(FogColor.r - FogColor.b, 0.0);
     float cloudBase = 0.8;
-    float cloudTop = 1.2;
+    float cloudTop = 1.4;
     int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
-
     float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
     vec3 cloudAccum = vec3_splat(0.0);
     float alphaAccum = 0.0;
+    
     for (int i = 0; i <= steps ; i++) {
-        float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
-        float height = cloudBase + stepSize * (float(i)+jitter);
+        //float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
+        float height = cloudBase + stepSize * (float(i));
         float t = V_CLOUD_HEIGHT*height / abs(viewDir.y);
         vec3 pos = viewDir * t ;
 
@@ -138,10 +138,9 @@ void main() {
     color = vec4_splat(0.0);
     vec3 wpos = vDir/abs(vDir.y);
     float fade = smoothstep(25.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
-    if(wpos.y > 0.0){
-    color += VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
-    }
+    color = VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
     color.a *= fade;
+    if(wpos.y <= 0.0){discard}
     #endif
     
     color.rgb = colorCorrection(color.rgb);
