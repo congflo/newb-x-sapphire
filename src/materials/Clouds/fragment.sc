@@ -140,7 +140,7 @@ void main() {
     float fade = smoothstep(25.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.3,  vDir.y);
     color = VLClouds(vDir, FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
     color.a *= fade;
-    if(wpos.y <= 0.0){discard}
+    if(wpos.y <= 0.0){discard;}
     #endif
     
     color.rgb = colorCorrection(color.rgb);
