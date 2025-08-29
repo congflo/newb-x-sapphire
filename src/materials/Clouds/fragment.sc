@@ -9,7 +9,7 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
 
-  #define V_CLOUD_STEPS -1 //affect performance, recommend 8
+  #define V_CLOUD_STEPS 16 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
   #define V_CLOUD_DETAIL 3.0
   #define V_CLOUD_HEIGHT 1.1
