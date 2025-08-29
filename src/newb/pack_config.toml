@@ -1,4 +1,4 @@
-name = "Newb X Sapphire EX"
+name = "Newb X Sapphire EX (2)"
 version = [0, 0, 0]
 min_supported_mc_version = [1, 21, 20]
 description = '''
@@ -9,7 +9,7 @@ description = '''
 ''' # %w = patch warning, %v = version
 authors = ["amg, devendrn"]
 url = "https://devendrn.github.io/newb-shader/"
-uuid = "a141cbbf-9e6a-40d0-96eb-7ee3a1f1ffab" # Use https://www.uuidgenerator.net/version4
+uuid = "2c37ae71-8662-4b22-b752-440392a5f70c" # Use https://www.uuidgenerator.net/version4
 materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "SunMoon", "Weather", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
 
 [info] 
