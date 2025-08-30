@@ -9,9 +9,9 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
 
-  #define V_CLOUD_STEPS 8 //affect performance, recommend 8
-  #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
-  #define V_CLOUD_DETAIL 3.0
+  #define V_CLOUD_STEPS 6 //affect performance, recommend 8
+  #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
+  #define V_CLOUD_DETAIL 2.5
   #define V_CLOUD_HEIGHT 1.1
   
 float fbm(vec3 p, float t, float rain) {
@@ -20,26 +20,26 @@ float fbm(vec3 p, float t, float rain) {
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
     f += amp * noise3D(p + 0.01*t);
     p *= V_CLOUD_DETAIL;
-    amp *= mix(0.45, 0.5, rain) ;
+    amp *= 0.5 ;
   }
-  return smoothstep(0.1,0.8,f + 0.2/4.0);
+  return smoothstep(mix(0.4,0.2, rain),0.9,exp(-length(clamp(f,0.0,1.0))) + 0.2/4.0);
 }
 
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
     time *= 0.15;
     float dusk = max(FogColor.r - FogColor.b, 0.0);
-    float cloudBase = 0.8;
-    float cloudTop = 1.4;
+    float cloudBase = 0.9;
+    float cloudTop = 1.2;
     int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
     float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
     vec3 cloudAccum = vec3_splat(0.0);
+
     float alphaAccum = 0.0;
-    
+    float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
-        //float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
-        float height = cloudBase + stepSize * (float(i));
-        float t = V_CLOUD_HEIGHT*height / abs(viewDir.y);
+        float height = cloudBase + stepSize * (float(i)+jitter);
+        float t = V_CLOUD_HEIGHT*height / max(0.01, abs(0.05+viewDir.y));
         vec3 pos = viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + time * 0.05, height*0.85);
@@ -49,24 +49,24 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         float heightFactor = smoothstep(0.0, 1.0, heightNorm) * (1.0 - smoothstep(0.8, 1.0, heightNorm));
         heightFactor *= smoothstep(0.2, 0.6, base);
 
-        float density = 1.5*clamp(base - 0.5, 0.0, 1.0);
-        density = pow(density, 3.0) * heightFactor;
+        float density = 1.25*clamp(base - 0.5, 0.0, 1.0);
+        density = pow(density, 2.0) * heightFactor;
 
-        float alpha = 1.0 - smoothstep(0.0085, 0.0015, density);
+        float alpha = 1.0 - smoothstep(0.025, 0.001, density);
         alpha *= (1.0 - alphaAccum);
 
-       float scattering = smoothstep(0.0+0.2*dusk, 0.7+0.3*dusk, heightNorm);
+       float scattering = smoothstep(0.0, 0.9, heightNorm);
 
-        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5, 1.0,dusk))+horizon) , mix(horizon, zenith, 0.8)*0.99, 1.0-scattering);
+        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(0.5,1.0,dusk))+horizon) , mix(horizon, zenith, 0.9), 1.0-scattering);
 
         cloudAccum += cloudColor * alpha;
         alphaAccum += alpha;
 
         if (alphaAccum > 0.98 && viewDir.y < 0.9) break;
     }
-    vec4 clouds = vec4(mix(0.6*(mix(horizon, zenith, 0.1+0.5*dusk)+horizon), cloudAccum, alphaAccum), alphaAccum);
-      clouds.rgb *= 1.0-0.1*rain;
 
+      vec4 clouds = vec4(mix(0.6*(mix(horizon, zenith, 0.1)+horizon), cloudAccum, alphaAccum), alphaAccum);
+      clouds.rgb *= 1.0-0.1*rain;
       return clouds;
 }
     
