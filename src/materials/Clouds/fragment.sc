@@ -11,7 +11,7 @@ uniform vec4 FogColor;
 
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
-  #define V_CLOUD_DETAIL 2.6
+  #define V_CLOUD_DETAIL 2.9
   #define V_CLOUD_HEIGHT 1.1
 
 float newhash(vec3 p)  // replace this by something better
