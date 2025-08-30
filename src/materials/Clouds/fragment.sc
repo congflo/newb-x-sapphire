@@ -11,14 +11,37 @@ uniform vec4 FogColor;
 
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
-  #define V_CLOUD_DETAIL 2.5
+  #define V_CLOUD_DETAIL 2.6
   #define V_CLOUD_HEIGHT 1.1
-  
+
+float newhash(vec3 p)  // replace this by something better
+{
+    p  = fract( p*0.3183099+.1 );
+	p *= 17.0;
+    return fract( p.x*p.y*p.z*(p.x+p.y+p.x) );
+}
+
+float newnoise( in vec3 x )
+{
+    vec3 i = floor(x);
+    vec3 f = fract(x);
+    f = f*f*(3.0-2.0*f);
+
+    return mix(mix(mix( newhash(i+vec3(0,0,0)),
+                        newhash(i+vec3(1,0,0)),f.x),
+                   mix( newhash(i+vec3(0,1,0)),
+                        newhash(i+vec3(1,1,0)),f.x),f.y),
+               mix(mix( newhash(i+vec3(0,0,1)),
+                        newhash(i+vec3(1,0,1)),f.x),
+                   mix( newhash(i+vec3(0,1,1)),
+                        newhash(i+vec3(1,1,1)),f.x),f.y),f.z);
+}
+
 float fbm(vec3 p, float t, float rain) {
   float f = 0.0;
   float amp = 0.5;
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
-    f += amp * noise3D(p + 0.01*t);
+    f += amp * newnoise(p + 0.01*t);
     p *= V_CLOUD_DETAIL;
     amp *= 0.5 ;
   }
