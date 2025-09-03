@@ -40,9 +40,11 @@ float newnoise( in vec3 x )
 highp float fbm(vec3 p, float t, float rain) {
   float f = 0.0;
   float amp = 0.5;
+  p.xz += 0.025*t;
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
-    f += amp * noise3D(p + 0.05*t);
+    f += amp * noise3D(p);
     p *= V_CLOUD_DETAIL;
+    p.y += 0.1;
     amp *= mix(0.45, 0.35, rain);
   }
   return clamp(length(exp(-f)),0.0,1.0) + 0.2/5.0 ;
@@ -52,8 +54,8 @@ highp float fbm(vec3 p, float t, float rain) {
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
     time *= 0.15;
     float dusk = max(FogColor.r - FogColor.b, 0.0);
-    float cloudBase = 0.9;
-    float cloudTop = 1.3;
+    float cloudBase = 0.8;
+    float cloudTop = 1.2;
     int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
     float rain = mix(smoothstep(0.66, 0.3, FogAndDistanceControl.x), 0.0, step(FogAndDistanceControl.x, 0.0));
@@ -76,12 +78,12 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         float density = 1.5*clamp(base - 0.55, 0.0, 1.0);
         density = pow(density, 3.0) * heightFactor;
 
-        float alpha = 1.0 - smoothstep(0.015, 0.0055, density);
+        float alpha = 1.0 - smoothstep(0.01, 0.005, density);
         alpha *= (1.0 - alphaAccum);
 
        float scattering = smoothstep(0.0, 0.9, heightNorm);
   float night = pow(max(min(1.0 - FogColor.r * 1.5, 1.0), 0.0), 1.2);
-        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(mix(0.8,1.0,dusk), 0.0, night)) +horizon) , mix(horizon, zenith, mix(1.0, 0.8, night)), 1.0-scattering);
+        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(mix(0.8,1.0,dusk), 0.0, night)) +horizon) , mix(horizon, zenith, mix(1.0, 0.8, night))*mix(1.0,0.7, dusk), 1.0-scattering);
 
         cloudAccum += cloudColor * alpha;
         alphaAccum += alpha;

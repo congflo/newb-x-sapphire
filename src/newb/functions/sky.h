@@ -88,10 +88,10 @@ vec3 getHorizonEdgeCol(vec3 horizonCol, float rainFactor, vec3 FOG_COLOR) {
 // 1D sky with three color gradient
 vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
   if(viewDir.y >= 0.0){
-  viewDir.y = pow(abs(viewDir.y), 0.7);
+  viewDir.y = pow(abs(viewDir.y), 0.6);
   }
   if(viewDir.y < 0.0){
-  viewDir.y = -pow(abs(1.3*viewDir.y), 1.0);
+  viewDir.y = -pow(abs(1.4*viewDir.y), 1.0);
   }
   float h = 1.0-viewDir.y*viewDir.y;
   float hsq = h*h;
@@ -127,9 +127,9 @@ vec3 getSunBloom(vec3 viewDir, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
   float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
   float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
   vec3 morningcol = 2.0*NL_MORNING_SUN_COL;
-  morningcol -= vec3(0.0,0.0,1.2);
+  //morningcol -= vec3(0.0,0.0,1.2);
   
-  return morningcol*horizonEdgeCol*(sunBloom*factor*factor);
+  return morningcol*horizonEdgeCol*(pow(sunBloom,2.0)*max(FOG_COLOR.r-FOG_COLOR.b, 0.0));
 }
 
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
