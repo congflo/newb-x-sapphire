@@ -41,7 +41,7 @@ highp float fbm(vec3 p, float t, float rain) {
   float f = 0.0;
   float amp = 0.5;
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
-    f += amp * noise2D(p + 0.05*t);
+    f += amp * noise3D(p + 0.05*t);
     p *= V_CLOUD_DETAIL;
     amp *= mix(0.45, 0.35, rain);
   }
