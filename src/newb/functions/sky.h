@@ -88,10 +88,10 @@ vec3 getHorizonEdgeCol(vec3 horizonCol, float rainFactor, vec3 FOG_COLOR) {
 // 1D sky with three color gradient
 vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
   if(viewDir.y >= 0.0){
-  viewDir.y = pow(abs(viewDir.y*1.1), 0.7);
+  viewDir.y = pow(abs(viewDir.y), 0.7);
   }
   if(viewDir.y < 0.0){
-  viewDir.y = -pow(abs(1.4*viewDir.y), 1.0);
+  viewDir.y = -pow(abs(1.3*viewDir.y), 1.0);
   }
   float h = 1.0-viewDir.y*viewDir.y;
   float hsq = h*h;
@@ -115,14 +115,14 @@ vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
 }
 
 // sunrise/sunset bloom
-vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
+vec3 getSunBloom(vec3 viewDir, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
   float factor = FOG_COLOR.r/(0.01 + length(FOG_COLOR));
   factor *= factor;
   factor *= factor;
 
-  float spread = smoothstep(0.0, 2.5, abs(viewDirX*viewDirX*viewDirX*viewDirX*viewDirX*viewDirX*viewDirX));
-  float sunBloom = spread*spread;
-  sunBloom = min(length(spread), 1.0);
+  float spread = smoothstep(1.0, 0.0, abs(viewDir.z))*(smoothstep(1.0,0.0,abs(viewDir.y)));
+  spread *= spread;
+  float sunBloom = length(spread);
   float day = pow(max(min(1.0 - FOG_COLOR.r * 1.2, 1.0), 0.0), 0.4);
   float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
   float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
@@ -183,7 +183,7 @@ vec3 nlRenderSky(nl_skycolor skycol, nl_environment env, vec3 viewDir, vec3 FOG_
       } else 
     #endif
     if (!env.nether) {
-      sky += getSunBloom(viewDir.x, skycol.horizonEdge, FOG_COLOR);
+      sky += getSunBloom(viewDir, skycol.horizonEdge, FOG_COLOR);
     }
   }
 
