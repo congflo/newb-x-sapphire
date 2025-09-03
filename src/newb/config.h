@@ -67,7 +67,7 @@
 #define NL_CLOUDY_FOG 0.3         // [toggle] 0.0 subtle - 0.8 dense fog clouds
 
 /* Sky colors - zenith=top, horizon=bottom */
-#define NL_DAY_ZENITH_COL    vec3(0.05,0.38, 0.75)
+#define NL_DAY_ZENITH_COL    vec3(0.05,0.37, 0.75)
 #define NL_DAY_HORIZON_COL   vec3(0.9, 0.98, 1.0)
 #define NL_NIGHT_ZENITH_COL  vec3(0.0,0.05,0.1)*0.5
 #define NL_NIGHT_HORIZON_COL vec3(0.0,0.25,0.5)*1.5
@@ -117,7 +117,7 @@
 
 
 /* Cloud type */
-#define NL_CLOUD_TYPE 2 // 0:vanilla, 1:soft, 2:rounded, 3:realistic
+#define NL_CLOUD_TYPE 4 // 0:vanilla, 1:soft, 2:rounded, 3:realistic
 
 /* Vanilla cloud settings - make sure to remove clouds.png when using this */
 /* Vanilla cloud settings - make sure to remove clouds.png when using this */
@@ -245,11 +245,11 @@
  #undef NL_AURORA
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
-/*
+
 #ifdef VOLUMETRIC_CLOUDS_NORMALMAP
  #define NORMALMAP
  #undef NL_CLOUD_TYPE
- #define NL_CLOUD_TYPE 3
+ #define NL_CLOUD_TYPE 4
  #undef NL_SUNMOON_SIZE
  #define NL_SUNMOON_SIZE 0.7
  #undef SUN_BLOOM
@@ -319,6 +319,5 @@
  #undef NL_LAVA_NOISE
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
-*/
 
 #endif

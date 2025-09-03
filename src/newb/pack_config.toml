@@ -29,6 +29,27 @@ credits = '''
 # right-most subpack is enabled by default
 
 
+[[subpack]]
+define = "VANILLA_CLOUD_NORMALMAP"
+materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
+description = '''
+Vanilla Cloud + Fake normalmapping 
+'''
+
+[[subpack]]
+define = "VANILLA_CLOUD"
+materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
+description = '''
+Vanilla Cloud 
++disable heavy features for low end device 
+'''
+
+[[subpack]]
+define = "VOLUMETRIC_CLOUDS_NORMALMAP"
+materials = ["Clouds", "RenderChunk", "SunMoon"]
+description = '''
+Volumetric Clouds + Fake normalmapping
+'''
 
 [[subpack]]
 define = "VOLUMETRIC_CLOUDS"
@@ -36,7 +57,12 @@ materials = ["Clouds", "RenderChunk", "SunMoon"]
 description = '''
 Volumetric Clouds
 '''
-
+[[subpack]]
+define = "DEFAULT_NORMALMAP"
+materials = ["RenderChunk"]
+description = '''
+Fake normalmapping
+'''
 
 [[subpack]]
 define = "DEFAULT"
@@ -44,5 +70,3 @@ materials = []
 description = '''
 Default
 '''
-
-

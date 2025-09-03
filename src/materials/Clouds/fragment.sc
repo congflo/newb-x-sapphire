@@ -45,7 +45,7 @@ highp float fbm(vec3 p, float t, float rain) {
     f += amp * noise3D(p);
     p *= V_CLOUD_DETAIL;
     p.y += 0.1;
-    amp *= mix(0.45, 0.35, rain);
+    amp *= mix(0.465, 0.35, rain);
   }
   return clamp(length(exp(-f)),0.0,1.0) + 0.2/5.0 ;
 }
@@ -78,7 +78,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         float density = 1.5*clamp(base - 0.55, 0.0, 1.0);
         density = pow(density, 3.0) * heightFactor;
 
-        float alpha = 1.0 - smoothstep(0.01, 0.005, density);
+        float alpha = 1.0 - smoothstep(0.0099, 0.0045, density);
         alpha *= (1.0 - alphaAccum);
 
        float scattering = smoothstep(0.0, 0.9, heightNorm);
