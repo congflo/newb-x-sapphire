@@ -126,9 +126,9 @@ void main() {
       
       color.a *= v_color0.a;
       if(vDir.y >= 0.0){
-      color.a *= smoothstep(0.1, 0.6, vDir.y);
+      color.a *= smoothstep(0.1, 0.4, vDir.y);
       } else {
-      color.a *= smoothstep(-0.1, -0.6, vDir.y);
+      color.a *= smoothstep(-0.1, -0.4, vDir.y);
       }
       
     #elif NL_CLOUD_TYPE == 3

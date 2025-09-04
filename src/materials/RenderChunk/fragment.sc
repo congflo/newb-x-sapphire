@@ -48,8 +48,8 @@ nl_skycolor skycol = nlSkyColors(env, FogColor.rgb);
 float rain = detectRain(FogAndDistanceControl.xyz);
 float time = ViewPositionAndTime.w;
   vec3 viewDir = normalize(v_worldPos);
-  viewDir.y = -viewDir.y;
-  
+ // viewDir.y = -viewDir.y;
+ // viewDir = 
   float day = pow(max(min(1.0 - FogColor.r * 1.2, 1.0), 0.0), 0.4);
   float night = pow(max(min(1.0 - FogColor.r * 1.5, 1.0), 0.0), 1.2);
   float dusk = max(FogColor.r - FogColor.b, 0.0);
@@ -111,21 +111,9 @@ diffuse.rgb = normalmap;
 
   color.rgb *= lightTint;
 
-  #if defined(TRANSPARENT) && !(defined(SEASONS) || defined(RENDER_AS_BILLBOARDS))
-    if (v_extra.b > 0.9) {
-      diffuse.rgb = vec3_splat(1.0 - NL_WATER_TEX_OPACITY*(1.0 - diffuse.b*1.8));
-      diffuse.a = color.a;
-    }
-  #else
-    diffuse.a = 1.0;
-  #endif
-
-  diffuse.rgb *= color.rgb;
-  
-  #ifndef ALPHA_TEST
-  diffuse.rgb += glow;
-  #endif
-   
+ float watershadow = smoothstep(0.800, 0.760, pow(uvl.y,2.0));
+ vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
+    
     float specular = smoothstep(SUN_REFL, 0.0, abs(viewDir.z));
     specular *= specular*smoothstep(0.6,1.0,abs(viewDir.x));
     specular *= specular;
@@ -135,6 +123,27 @@ diffuse.rgb = normalmap;
     specular *= max(0.0,1.0)*(1.0-cave);
     vec3 sunrefl = 4.0*skycol.horizonEdge * specular * specular * specular;
     sunrefl += sunrefl;
+ 
+  #if defined(TRANSPARENT) && !(defined(SEASONS) || defined(RENDER_AS_BILLBOARDS))
+    if (v_extra.b > 0.9) {
+      diffuse.rgb = vec3_splat(1.0 - NL_WATER_TEX_OPACITY*(1.0 - diffuse.b*1.8));
+      diffuse.a = color.a;
+    }
+  #else
+    diffuse.a = 1.0;
+  #endif
+  if(v_extra.b > 0.9){
+  #ifdef WATER_RFL
+  color.rgb = mix(mix(skycolor,v_refl.rgb, 1.0),v_color0.rgb, cave);
+  #endif
+  color.rgb += sunrefl*v_refl.a*(1.0-cave);
+  }
+  diffuse.rgb *= color.rgb;
+  
+  #ifndef ALPHA_TEST 
+  diffuse.rgb += glow;
+  #endif
+
     
  vec3 torchColor;
    if (env.underwater) {
@@ -147,29 +156,12 @@ diffuse.rgb = normalmap;
     torchColor = NL_OVERWORLD_TORCH_COL;
   }
   
- float watershadow = smoothstep(0.800, 0.760, pow(uvl.y,2.0));
- vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
- 
- float wavepower;
- if(env.end){
- wavepower = 0.0;
- }else {
- wavepower = 1.5;
- }
-vec3 waternormal = getWaterNormalMapFromHeight(v_position.xz*vec2(1.0,-1.0)+0.2*time, vec2(-4.0,2.0), wavepower, 0.2*time).xyz;
-
-    #undef NL_UNDERWATER_TINT
-    #define NL_UNDERWATER_TINT skycolor
-    #undef NL_WATER_TINT
-    #define NL_WATER_TINT skycolor
-
-
-
-
   if (v_extra.b > 0.9) {
+  // old code for later use
   
-    diffuse.rgb += v_refl.rgb*v_refl.a;
+  /*  diffuse.rgb += v_refl.rgb*v_refl.a;
     diffuse.rgb += sunrefl*v_refl.a;
+  */
   
     diffuse.rgb += torchColor*pow(v_lightmapUV.x * 1.2, 7.0);
     
@@ -195,14 +187,6 @@ vec3 waternormal = getWaterNormalMapFromHeight(v_position.xz*vec2(1.0,-1.0)+0.2*
   #endif
   
   diffuse.rgb = mix(diffuse.rgb, fogColor.rgb, fogColor.a);
-
-     if (v_extra.b > 0.9){
-     if(!env.underwater){
-     #ifdef WATER_REFLECTION
-     diffuse.rgb = mix(diffuse.rgb, skyrefl, v_fog.a);
-     #endif
-     }
-     }
      
   diffuse.rgb = colorCorrection(diffuse.rgb);
 
