@@ -74,7 +74,7 @@ float time = ViewPositionAndTime.w;
   shadowmap *= mix(1.0, 0.5, night);
   diffuse.rgb *= 1.0-0.3*shadowmap;
   
-vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
+highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
 float dirfac = 0.25;
   dirfac *= mix(1.0, 0.0, smoothstep(0.875, 0.855, pow(uvl.y,2.0)));
   dirfac *= mix(1.0,0.0, uvl.x);
