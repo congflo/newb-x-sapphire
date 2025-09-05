@@ -1,6 +1,14 @@
 #ifndef DETECTION_H
 #define DETECTION_H
 
+    
+vec3 timeofday(vec3 FogColor){
+  float day = pow(max(min(1.0 - FogColor.r * 1.2, 1.0), 0.0), 0.4);
+  float night = pow(max(min(1.0 - FogColor.r * 1.5, 1.0), 0.0), 1.2);
+  float dusk = max(FogColor.r - FogColor.b, 0.0);
+  return vec3(night, dusk, day);
+}
+
 struct nl_environment {
   bool end;
   bool nether;

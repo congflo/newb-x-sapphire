@@ -86,27 +86,4 @@ vec4 nlWater(
   return vec4(waterRefl, fresnel);
 }
 
-
-// Water Normal Map
-float getWaterHeight(vec2 uv, float time) {
-float bump = 0.05;
-  
-    bump *= 0.3*perlin_noise(uv, 3.0);
-  return bump;
-  
-}
-
-vec4 getWaterNormalMapFromHeight(vec2 uv, vec2 resolution, float scale, float time) {
-  vec2 step = 1.0 / resolution;
-
-  float height = getWaterHeight(uv,time);
-
-  vec2 dxy = height - vec2(
-      getWaterHeight(uv + vec2(step.x, 0.0), time),
-      getWaterHeight(uv + vec2(0.0, step.y), time)
-  );
-  return vec4(normalize(vec3(dxy * scale / step, 1.0)), height);
-}
-
-
 #endif
