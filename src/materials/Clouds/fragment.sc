@@ -78,7 +78,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         float density = 1.5*clamp(base - 0.55, 0.0, 1.0);
         density = pow(density, 3.0) * heightFactor;
 
-        float alpha = 1.0 - smoothstep(0.0099, 0.0045, density);
+        float alpha = 1.0 - smoothstep(0.001, 0.005, density);
         alpha *= (1.0 - alphaAccum);
 
        float scattering = smoothstep(0.0, 0.9, heightNorm);
@@ -163,7 +163,7 @@ void main() {
     #else
     color = vec4_splat(0.0);
     vec3 wpos = vDir/abs(vDir.y);
-    float fade = smoothstep(50.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.2,  vDir.y);
+    float fade = smoothstep(50.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.1,  vDir.y);
     color = VLClouds(normalize(v_color0.xyz), FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
     color.a *= fade;
     if(wpos.y <= 0.0){discard;}
