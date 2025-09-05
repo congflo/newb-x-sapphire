@@ -43,35 +43,18 @@ vec3 getSkyFactors(vec3 FOG_COLOR) {
 }
 
 vec3 getZenithCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
-  float day = pow(max(min(1.0 - FOG_COLOR.r * 1.2, 1.0), 0.0), 0.4);
-  float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
-  float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
-  vec3 dawncol = NL_DAWN_ZENITH_COL;
-  dawncol *= max(dawn, 0.0);
-  vec3 nightcol = NL_NIGHT_ZENITH_COL;
-  nightcol *= max(0.0, 1.0)*night;
- 
-  vec3 zenithCol = nightcol*(1.0-FOG_COLOR.b);
-  zenithCol += dawncol*((0.7*fs.x*fs.x) + (0.4*fs.x) + fs.y);
-  zenithCol = mix(zenithCol, (0.7*fs.x*fs.x + 0.3*fs.x)*NL_DAY_ZENITH_COL, fs.x*fs.x);
+  vec3 tod = timeofday(FOG_COLOR);
+  float dusk = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
+  vec3 zenithCol = mix(mix(NL_DAY_ZENITH_COL*mix(1.0, 0.0, dusk), NL_DAWN_ZENITH_COL, tod.y), NL_NIGHT_ZENITH_COL*1.0-dusk, tod.x);
   zenithCol = mix(zenithCol, mix(zenithCol, NL_RAIN_ZENITH_COL*fs.z*17.0, 0.9), rainFactor);
 
   return zenithCol;
 }
 
 vec3 getHorizonCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
-  
-  float day = pow(max(min(1.0 - FOG_COLOR.r * 1.2, 1.0), 0.0), 0.4);
-  float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
-  float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
-  vec3 dawncol = NL_DAWN_HORIZON_COL;
-  dawncol *= max(0.0, dawn);
-  vec3 nightcol = NL_NIGHT_HORIZON_COL;
-
-  nightcol *= max(0.0, night);
-  vec3 horizonCol = nightcol*(1.0-FOG_COLOR.b); 
-  horizonCol += dawncol*(((0.7*fs.x*fs.x) + (0.3*fs.x) + fs.y)*1.9); 
-  horizonCol = mix(horizonCol, 2.0*fs.x*NL_DAY_HORIZON_COL, fs.x*fs.x);
+  vec3 tod = timeofday(FOG_COLOR);
+  float dusk = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
+  vec3 horizonCol = mix(mix(NL_DAY_HORIZON_COL*mix(1.0, 0.0, dusk), NL_DAWN_HORIZON_COL, tod.y), NL_NIGHT_HORIZON_COL*mix(1.0, 0.0, dusk), tod.x);
   horizonCol = mix(horizonCol, mix(horizonCol,NL_RAIN_HORIZON_COL*fs.z*17.0, 0.9), rainFactor);
 
   return horizonCol;
@@ -105,7 +88,7 @@ vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
   float gradient2 = 0.25*gradient1 + 0.1*hsq;
   gradient1 *= gradient1;
 
-  vec3 sky = mix(skycol.horizon, skycol.horizonEdge, gradient1);
+  vec3 sky = mix(skycol.horizon, skycol.horizon, gradient1);
   sky = mix(skycol.zenith, skycol.horizon, gradient2);
  if(viewDir.y < 0.0){
   sky *= mix(mix(mix(mix(1.0, 0.85,smoothstep(0.0, -0.25, viewDir.y)), 0.7, smoothstep(0.0, -0.5, viewDir.y)),0.55,smoothstep(0.0, -0.75, viewDir.y)), 0.4, smoothstep (0.0, -1.0, viewDir.y));

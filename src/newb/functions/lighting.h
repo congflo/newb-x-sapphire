@@ -14,24 +14,13 @@ vec3 sunLightTint(float dayFactor, float rain, vec3 FOG_COLOR) {
   float noon = clamp((tintFactor-0.37)/0.45,0.0,1.0);
   float morning = clamp((tintFactor-0.05)*3.125,0.0,1.0);
   
-  float day = pow(max(min(1.0 - FOG_COLOR.r * 1.2, 1.0), 0.0), 0.4);
-  float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
-  float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
-  
-  vec3 morningcol = NL_MORNING_SUN_COL;
-  vec3 nightcol = NL_NIGHT_SUN_COL;
-  morningcol *= max(0.0, 1.0)*dawn;
-  nightcol *= max(0.0,1.0)*night;
-  vec3 clearTint = mix(
-    mix(nightcol, morningcol, morning),
-    mix(morningcol, NL_NOON_SUN_COL, noon),
-    dayFactor
-  );
+  vec3 tod = timeofday(FOG_COLOR);
+  vec3 clearTint = mix(mix(NL_NOON_SUN_COL, NL_NIGHT_SUN_COL, tod.x)*mix(1.0, 0.0, tod.y), NL_MORNING_SUN_COL, tod.y);
+
   clearTint *= 1.0-0.35*rain;
   float r = 1.0-rain;
   r *= r;
-
-  return mix(mix(vec3(0.85,0.85,0.86), vec3(0.3,0.5,0.7), night), clearTint, r*r);
+  return mix(mix(vec3(0.85,0.85,0.86), vec3(0.3,0.5,0.7), tod.x), clearTint, r*r);
 }
 
 vec3 nlLighting(

@@ -75,18 +75,21 @@ float time = ViewPositionAndTime.w;
   diffuse.rgb *= 1.0-0.3*shadowmap;
   
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
-float dirfac = 0.25;
+
+
+
+if ((!env.nether && !env.end) || !gl_FrontFacing) {
+  float dirfac = abs(normal.x);
   dirfac *= mix(1.0, 0.0, smoothstep(0.875, 0.855, pow(uvl.y,2.0)));
   dirfac *= mix(1.0,0.0, uvl.x);
-if (!env.underwater) {
+  if (!env.underwater) {
   dirfac *= mix(1.0, 0.0, env.rainFactor);
-}
-
+  }
 #if NL_CLOUD_TYPE == 0
 dirfac *= 0.0;
 #endif
-if (!env.nether && !env.end) {
-diffuse.rgb *= 1.0-dirfac*abs(normal.x);
+
+diffuse.rgb *= 1.0-0.25*dirfac;
 }
 
 vec3 shift = diffuse.rgb;

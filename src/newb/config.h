@@ -46,7 +46,7 @@
 //#define NL_CLOUD_SHADOW       // [toggle] cloud shadow (simple clouds only)
 
 /* Sun/moon light color on terrain */
-#define NL_MORNING_SUN_COL vec3(0.9,0.38,0.0)
+#define NL_MORNING_SUN_COL vec3(1.0,0.4,0.0)
 #define NL_NOON_SUN_COL    vec3(1.0,1.0,0.99)
 #define NL_NIGHT_SUN_COL   vec3(0.28,0.37,0.56)
 
@@ -68,15 +68,15 @@
 
 /* Sky colors - zenith=top, horizon=bottom */
 #define NL_DAY_ZENITH_COL    vec3(0.05,0.37, 0.75)
-#define NL_DAY_HORIZON_COL   vec3(0.9, 0.98, 1.0)
-#define NL_NIGHT_ZENITH_COL  vec3(0.0,0.05,0.1)*0.5
+#define NL_DAY_HORIZON_COL   vec3(0.9, 0.98, 1.0)*2.0
+#define NL_NIGHT_ZENITH_COL  vec3(0.0,0.05,0.1)*0.25
 #define NL_NIGHT_HORIZON_COL vec3(0.0,0.25,0.5)*1.5
 #define NL_RAIN_ZENITH_COL   vec3(0.3,0.4,0.5)*0.8
 #define NL_RAIN_HORIZON_COL  vec3(0.8,0.9,1.0)*0.8
 #define NL_END_ZENITH_COL    vec3(0.0,0.03,0.05)
 #define NL_END_HORIZON_COL   vec3(0.0,0.21,0.829)
-#define NL_DAWN_ZENITH_COL   vec3(0.2,0.2,0.23)
-#define NL_DAWN_HORIZON_COL  vec3(1.5,0.2,0.05)*1.75
+#define NL_DAWN_ZENITH_COL   vec3(0.22,0.22,0.22)*0.25
+#define NL_DAWN_HORIZON_COL  vec3(4.0,0.5,0.0)
 #define NL_DAWN_EDGE_COL     vec3(1.0,1.0,1.0)
 
 /* Rainbow */
@@ -91,8 +91,8 @@
 #define NL_GLOW_LEAK 0.3        // [toggle] 0.08 subtle ~ 1.0 100% brightness of NL_GLOW_TEX
 
 /* Waving */
-//#define NL_PLANTS_WAVE 0.05    // [toggle] 0.02 gentle ~ 0.4 violent
-//#define NL_LANTERN_WAVE 0.16   // [toggle] 0.05 subtle ~ 0.4 large swing
+#define NL_PLANTS_WAVE 0.05    // [toggle] 0.02 gentle ~ 0.4 violent
+#define NL_LANTERN_WAVE 0.16   // [toggle] 0.05 subtle ~ 0.4 large swing
 #define NL_WAVE_SPEED 2.8      // 0.5 slow wave ~ 5.0 very fast wave
 //#define NL_EXTRA_PLANTS_WAVE // [toggle] !dont use! wave using texture coords (1.21.0 vanilla 2048x1024)
 
@@ -106,6 +106,7 @@
 #define NL_WATER_CLOUD_REFLECTION // [toggle] simple clouds/aurora reflection
 #define NL_WATER_TINT vec3_splat(1.0)//vec3(0.17,0.32,0.13)
 #define WATER_RFL
+
 
 /* Underwater */
 #define NL_UNDERWATER_BRIGHTNESS 0.8         // 0.0 dark ~ 3.0 bright
