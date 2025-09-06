@@ -136,9 +136,7 @@ diffuse.rgb = normalmap;
     diffuse.a = 1.0;
   #endif
   if(v_extra.b > 0.9){
-  #ifdef WATER_RFL
-  color.rgb = mix(mix(skycolor,v_refl.rgb, 1.0),v_color0.rgb, cave);
-  #endif
+  color.rgb = mix(mix(skycolor,v_refl.rgb, 1.0),v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
   color.rgb += sunrefl*v_refl.a*(1.0-cave);
   }
   diffuse.rgb *= color.rgb;
