@@ -27,7 +27,7 @@
   Remember to rebuild the shader after making changes.
 */
 
-#define NEW_VERSION_SUPPORT
+//#define NEW_VERSION_SUPPORT
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -48,7 +48,7 @@
 //#define NL_CLOUD_SHADOW       // [toggle] cloud shadow (simple clouds only)
 
 /* Sun/moon light color on terrain */
-#define NL_MORNING_SUN_COL vec3(1.0,0.4,0.0)*0.7
+#define NL_MORNING_SUN_COL vec3(0.9,0.4,0.0)*0.7
 #define NL_NOON_SUN_COL    vec3(1.0,1.0,0.99)
 #define NL_NIGHT_SUN_COL   vec3(0.28,0.37,0.56)
 
@@ -63,7 +63,7 @@
 #define NL_END_TORCH_COL        vec3(0.95,0.4,0.21)
 
 /* Fog */
-#define NL_FOG 1.0                // [toggle] 0.1 subtle ~ 1.0 blend with sky completely
+#define NL_FOG 0.8                // [toggle] 0.1 subtle ~ 1.0 blend with sky completely
 #define NL_MIST_DENSITY 0.5      // 0.0 no mist ~ 1.0 misty
 #define NL_RAIN_MIST_OPACITY 0.5 // [toggle] 0.04 very subtle ~ 0.5 thick rain mist blow
 #define NL_CLOUDY_FOG 0.3         // [toggle] 0.0 subtle - 0.8 dense fog clouds
@@ -77,7 +77,7 @@
 #define NL_RAIN_HORIZON_COL  vec3(0.8,0.9,0.9)*0.9
 #define NL_END_ZENITH_COL    vec3(0.0,0.03,0.05)
 #define NL_END_HORIZON_COL   vec3(0.0,0.21,0.829)
-#define NL_DAWN_ZENITH_COL   vec3(0.28,0.3,0.2)*0.35
+#define NL_DAWN_ZENITH_COL   vec3(0.28,0.3,0.17)*0.35
 #define NL_DAWN_HORIZON_COL  vec3(4.0,0.5,0.0)*1.5
 #define NL_DAWN_EDGE_COL     vec3(1.0,1.0,1.0)
 
