@@ -212,7 +212,7 @@
 #define NL_LAVA_NOISE_BUMP 0.4 // [toggle] 0.1 subtle ~ 0.8 massive waves
 #define NL_LAVA_NOISE_SPEED 0.04 // 0.0 still ~ 0.1 fast
 
-#define 1_21_100
+#define NEW_VERSION_SUPPORT
 
 /* Extra Quality */
 //#define WATER_REFLECTION
