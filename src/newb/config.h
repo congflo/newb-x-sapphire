@@ -275,9 +275,8 @@
  #define NL_WATER_BUMP 0.04   
  #undef NL_WATER_WAVE
  #undef NL_UNDERWATER_WAVE
- #undef NL_PLANTS_WAVE
- #undef NL_LANTERN_WAVE
- #define NL_PLANTS_WAVE 0.0
+ #undef NL_WAVE_SPEED
+ #define NL_WAVE_SPEED 0.0
  #undef NL_MIST_DENSITY    
  #undef NL_RAIN_MIST_OPACITY 
  #define NL_MIST_DENSITY 0.2      
@@ -285,6 +284,7 @@
  #undef NL_CLOUDY_FOG 
  #undef NL_GALAXY_STARS
  #undef NL_LAVA_NOISE
+ #undef NL_GLOW_LEAK
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
 
@@ -300,9 +300,8 @@
  #define NL_WATER_BUMP 0.04   
  #undef NL_WATER_WAVE
  #undef NL_UNDERWATER_WAVE
- #undef NL_PLANTS_WAVE
- #undef NL_LANTERN_WAVE
- #define NL_PLANTS_WAVE 0.0
+ #undef NL_WAVE_SPEED
+ #define NL_WAVE_SPEED 0.0
  #undef NL_MIST_DENSITY    
  #undef NL_RAIN_MIST_OPACITY 
  #define NL_MIST_DENSITY 0.2      
@@ -310,6 +309,7 @@
  #undef NL_CLOUDY_FOG 
  #undef NL_GALAXY_STARS
  #undef NL_LAVA_NOISE
+ #undef NL_GLOW_LEAK
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
 
