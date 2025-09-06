@@ -108,10 +108,10 @@ vec3 getSunBloom(vec3 viewDir, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
   float day = pow(max(min(1.0 - FOG_COLOR.r * 1.2, 1.0), 0.0), 0.4);
   float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
   float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
-  vec3 morningcol = 2.8*NL_MORNING_SUN_COL;
+  vec3 morningcol = NL_MORNING_SUN_COL;
   //morningcol -= vec3(0.0,0.0,1.2);
   
-  return morningcol*horizonEdgeCol*(pow(sunBloom,3.0)*max(FOG_COLOR.r-FOG_COLOR.b, 0.0));
+  return morningcol*horizonEdgeCol*(pow(sunBloom,2.0)*max(FOG_COLOR.r-FOG_COLOR.b, 0.0));
 }
 
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {

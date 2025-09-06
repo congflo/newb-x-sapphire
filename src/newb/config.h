@@ -27,7 +27,6 @@
   Remember to rebuild the shader after making changes.
 */
 
-
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
 #define NL_GAMMA 1.35                  // 0.3 low ~ 2.0 high
@@ -72,12 +71,12 @@
 #define NL_DAY_HORIZON_COL   vec3(0.9, 0.98, 1.0)*2.0
 #define NL_NIGHT_ZENITH_COL  vec3(0.0,0.05,0.1)*0.25
 #define NL_NIGHT_HORIZON_COL vec3(0.0,0.25,0.5)*1.5
-#define NL_RAIN_ZENITH_COL   vec3(0.3,0.4,0.5)*0.8
-#define NL_RAIN_HORIZON_COL  vec3(0.8,0.9,1.0)*0.8
+#define NL_RAIN_ZENITH_COL   vec3(0.4,0.5,0.5)*0.7
+#define NL_RAIN_HORIZON_COL  vec3(0.8,0.9,0.9)*0.9
 #define NL_END_ZENITH_COL    vec3(0.0,0.03,0.05)
 #define NL_END_HORIZON_COL   vec3(0.0,0.21,0.829)
-#define NL_DAWN_ZENITH_COL   vec3(0.22,0.22,0.22)*0.25
-#define NL_DAWN_HORIZON_COL  vec3(4.0,0.5,0.0)
+#define NL_DAWN_ZENITH_COL   vec3(0.28,0.3,0.2)*0.35
+#define NL_DAWN_HORIZON_COL  vec3(4.0,0.5,0.0)*1.5
 #define NL_DAWN_EDGE_COL     vec3(1.0,1.0,1.0)
 
 /* Rainbow */
@@ -211,8 +210,6 @@
 #define NL_LAVA_NOISE            // [toggle] darken lava in certain regions
 #define NL_LAVA_NOISE_BUMP 0.4 // [toggle] 0.1 subtle ~ 0.8 massive waves
 #define NL_LAVA_NOISE_SPEED 0.04 // 0.0 still ~ 0.1 fast
-
-#define NEW_VERSION_SUPPORT
 
 /* Extra Quality */
 //#define WATER_REFLECTION
