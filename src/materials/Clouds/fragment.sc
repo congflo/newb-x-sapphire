@@ -42,7 +42,7 @@ highp float fbm(vec3 p, float t, float rain) {
   float amp = 0.5;
   p.xz += 0.025*t;
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
-    f += amp * noise3D(p);
+    f += amp * noise3D(p + t*0.01);
     p *= V_CLOUD_DETAIL;
     p.y += 0.1;
     amp *= mix(0.465, 0.35, rain);
@@ -68,7 +68,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         float t = V_CLOUD_HEIGHT*height / abs(0.05+viewDir.y);
         vec3 pos = viewDir * t ;
 
-        vec3 noisePos = vec3(pos.xz /*+ time * 0.05*/, height*0.85);
+        vec3 noisePos = vec3(pos.xz, height*0.85);
         float base = fbm(noisePos, time, rain);
 
         float heightNorm = (height - cloudBase) / (cloudTop - cloudBase);

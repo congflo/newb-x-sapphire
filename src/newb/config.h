@@ -46,7 +46,7 @@
 //#define NL_CLOUD_SHADOW       // [toggle] cloud shadow (simple clouds only)
 
 /* Sun/moon light color on terrain */
-#define NL_MORNING_SUN_COL vec3(1.0,0.4,0.0)
+#define NL_MORNING_SUN_COL vec3(1.0,0.4,0.0)*0.7
 #define NL_NOON_SUN_COL    vec3(1.0,1.0,0.99)
 #define NL_NIGHT_SUN_COL   vec3(0.28,0.37,0.56)
 
@@ -103,7 +103,7 @@
 #define NL_WATER_TEX_OPACITY 0.0  // 0.0 plain water ~ 1.0 vanilla water texture
 #define NL_WATER_WAVE             // [toggle] wave effect
 #define NL_WATER_FOG_FADE         // [toggle] fog fade for water
-#define NL_WATER_CLOUD_REFLECTION // [toggle] simple clouds/aurora reflection
+//#define NL_WATER_CLOUD_REFLECTION // [toggle] simple clouds/aurora reflection
 #define NL_WATER_TINT vec3_splat(1.0)//vec3(0.17,0.32,0.13)
 #define WATER_RFL
 
@@ -187,7 +187,7 @@
 #define SUN_BLOOM  vec3(0.25,0.24,0.245)
 #define MOON_BLOOM  vec3(0.15,0.25,0.3)*1.5
 #define SUN_REFL 0.5
- 
+
 /* Fake godrays during sunrise/sunset */
 //#define NL_GODRAY 0.4 // [toggle] 0.1 subtle ~ 0.8 strong
 

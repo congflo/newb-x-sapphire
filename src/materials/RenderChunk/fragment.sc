@@ -124,7 +124,7 @@ diffuse.rgb = normalmap;
     
     specular *= max(FogColor.r-FogColor.b, 0.0);
     specular *= max(0.0,1.0)*(1.0-cave);
-    vec3 sunrefl = 4.0*skycol.horizonEdge * specular * specular * specular;
+    vec3 sunrefl = 4.0*skycol.horizon * specular * specular * specular;
     sunrefl += sunrefl;
  
   #if defined(TRANSPARENT) && !(defined(SEASONS) || defined(RENDER_AS_BILLBOARDS))
