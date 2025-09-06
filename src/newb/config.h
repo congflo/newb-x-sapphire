@@ -27,7 +27,7 @@
   Remember to rebuild the shader after making changes.
 */
 
-#define NEW_VERSION_SUPPORT
+//#define NEW_VERSION_SUPPORT
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -39,7 +39,7 @@
 #define NL_TINT_HIGH vec3(1.4,0.7,0.3) // color tint for light tone
 
 /* Terrain lighting */
-#define NL_SUN_INTENSITY 3.0   // 0.5 weak ~ 5.0 bright
+#define NL_SUN_INTENSITY 2.8   // 0.5 weak ~ 5.0 bright
 #define NL_TORCH_INTENSITY 1.5  // 0.5 weak ~ 3.0 bright
 #define NL_NIGHT_BRIGHTNESS 0.3 // 0.0 dark ~ 2.0 bright
 #define NL_CAVE_BRIGHTNESS 0.5  // 0.0 dark ~ 2.0 bright
@@ -228,11 +228,11 @@
   Subpack names and flags are inside `pack_config.toml`.
   Build tool will enable corresponding flags when compiling. 
 */
-/*
+
 #ifdef DEFAULT_NORMALMAP
 #define NORMALMAP
 #endif
-*/
+
 #ifdef VOLUMETRIC_CLOUDS
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 4
@@ -265,8 +265,6 @@
 #endif
  
 #ifdef VANILLA_CLOUD
- #undef NORMALMAP
- #undef NL_GROUND_REFL
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 0
  #undef NL_GROUND_RAIN_WETNESS 
@@ -279,23 +277,19 @@
  #undef NL_UNDERWATER_WAVE
  #undef NL_PLANTS_WAVE
  #undef NL_LANTERN_WAVE
- #undef NL_WAVE_SPEED
- #undef NL_PLANTS_WAVE   
- #undef NL_LANTERN_WAVE  
+ #define NL_PLANTS_WAVE 0.0
  #undef NL_MIST_DENSITY    
  #undef NL_RAIN_MIST_OPACITY 
  #define NL_MIST_DENSITY 0.2      
  #define NL_RAIN_MIST_OPACITY 0.2 
  #undef NL_CLOUDY_FOG 
  #undef NL_GALAXY_STARS
- #undef NL_GLOW_LEAK
  #undef NL_LAVA_NOISE
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
 
 #ifdef VANILLA_CLOUD_NORMALMAP
  #define NORMALMAP
- #undef NL_GROUND_REFL
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 0
  #undef NL_GROUND_RAIN_WETNESS 
@@ -308,16 +302,13 @@
  #undef NL_UNDERWATER_WAVE
  #undef NL_PLANTS_WAVE
  #undef NL_LANTERN_WAVE
- #undef NL_WAVE_SPEED
- #undef NL_PLANTS_WAVE   
- #undef NL_LANTERN_WAVE  
+ #define NL_PLANTS_WAVE 0.0
  #undef NL_MIST_DENSITY    
  #undef NL_RAIN_MIST_OPACITY 
  #define NL_MIST_DENSITY 0.2      
  #define NL_RAIN_MIST_OPACITY 0.2 
  #undef NL_CLOUDY_FOG 
  #undef NL_GALAXY_STARS
- #undef NL_GLOW_LEAK
  #undef NL_LAVA_NOISE
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
