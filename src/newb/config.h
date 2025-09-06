@@ -26,7 +26,7 @@
 
   Remember to rebuild the shader after making changes.
 */
-#define 1_21_100
+
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -211,6 +211,8 @@
 #define NL_LAVA_NOISE            // [toggle] darken lava in certain regions
 #define NL_LAVA_NOISE_BUMP 0.4 // [toggle] 0.1 subtle ~ 0.8 massive waves
 #define NL_LAVA_NOISE_SPEED 0.04 // 0.0 still ~ 0.1 fast
+
+#define 1_21_100
 
 /* Extra Quality */
 //#define WATER_REFLECTION
