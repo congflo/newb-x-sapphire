@@ -265,6 +265,7 @@
 #endif
  
 #ifdef VANILLA_CLOUD
+ #undef NL_GROUND_REFL
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 0
  #undef NL_GROUND_RAIN_WETNESS 
@@ -275,8 +276,8 @@
  #define NL_WATER_BUMP 0.04   
  #undef NL_WATER_WAVE
  #undef NL_UNDERWATER_WAVE
- #undef NL_WAVE_SPEED
- #define NL_WAVE_SPEED 0.0
+ #undef NL_LANTERN_WAVE
+ #undef NL_PLANTS_WAVE
  #undef NL_MIST_DENSITY    
  #undef NL_RAIN_MIST_OPACITY 
  #define NL_MIST_DENSITY 0.2      
@@ -290,6 +291,7 @@
 
 #ifdef VANILLA_CLOUD_NORMALMAP
  #define NORMALMAP
+ #undef NL_GROUND_REFL
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 0
  #undef NL_GROUND_RAIN_WETNESS 
@@ -300,8 +302,8 @@
  #define NL_WATER_BUMP 0.04   
  #undef NL_WATER_WAVE
  #undef NL_UNDERWATER_WAVE
- #undef NL_WAVE_SPEED
- #define NL_WAVE_SPEED 0.0
+ #undef NL_LANTERN_WAVE
+ #undef NL_PLANTS_WAVE
  #undef NL_MIST_DENSITY    
  #undef NL_RAIN_MIST_OPACITY 
  #define NL_MIST_DENSITY 0.2      

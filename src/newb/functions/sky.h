@@ -44,8 +44,7 @@ vec3 getSkyFactors(vec3 FOG_COLOR) {
 
 vec3 getZenithCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
   vec3 tod = timeofday(FOG_COLOR);
-  float dusk = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
-  vec3 zenithCol = mix(mix(NL_DAY_ZENITH_COL*mix(1.0, 0.0, dusk), NL_DAWN_ZENITH_COL, tod.y), NL_NIGHT_ZENITH_COL*1.0-dusk, tod.x);
+  vec3 zenithCol = mix(mix(NL_DAY_ZENITH_COL*mix(1.0, 0.0, tod.y), NL_DAWN_ZENITH_COL, tod.y), NL_NIGHT_ZENITH_COL*max(0.0, tod.x), tod.x);
   zenithCol = mix(zenithCol, mix(zenithCol, NL_RAIN_ZENITH_COL*fs.z*17.0, 0.9), rainFactor);
 
   return zenithCol;
@@ -53,8 +52,7 @@ vec3 getZenithCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
 
 vec3 getHorizonCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
   vec3 tod = timeofday(FOG_COLOR);
-  float dusk = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
-  vec3 horizonCol = mix(mix(NL_DAY_HORIZON_COL*mix(1.0, 0.0, dusk), NL_DAWN_HORIZON_COL, tod.y), NL_NIGHT_HORIZON_COL*mix(1.0, 0.0, dusk), tod.x);
+  vec3 horizonCol = mix(mix(NL_DAY_HORIZON_COL*mix(1.0, 0.0, tod.y), NL_DAWN_HORIZON_COL, tod.y), NL_NIGHT_HORIZON_COL*max(0.0, tod.x), tod.x);
   horizonCol = mix(horizonCol, mix(horizonCol,NL_RAIN_HORIZON_COL*fs.z*17.0, 0.9), rainFactor);
 
   return horizonCol;
@@ -105,13 +103,9 @@ vec3 getSunBloom(vec3 viewDir, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
   float spread = smoothstep(1.0, 0.0, abs(viewDir.z))*(smoothstep(1.0,0.0,abs(viewDir.y)));
   spread *= spread;
   float sunBloom = length(spread);
-  float day = pow(max(min(1.0 - FOG_COLOR.r * 1.2, 1.0), 0.0), 0.4);
-  float dawn = max(FOG_COLOR.r - FOG_COLOR.b, 0.0);
-  float night = pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
   vec3 morningcol = NL_MORNING_SUN_COL;
-  //morningcol -= vec3(0.0,0.0,1.2);
   
-  return morningcol*horizonEdgeCol*(pow(sunBloom,3.0)*max(FOG_COLOR.r-FOG_COLOR.b, 0.0));
+  return morningcol*horizonEdgeCol*(pow(sunBloom,3.0)*pow(max(FOG_COLOR.r-FOG_COLOR.b, 0.0), 2.0));
 }
 
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
