@@ -12,7 +12,9 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
 
- //#define a_texcoord1 vec2(fract(a_texcoord1.x*15.9375),floor(a_texcoord1.x*15.9375)*0.0625)
+#ifdef 1_21_100
+ #define a_texcoord1 vec2(fract(a_texcoord1.x*15.9375),floor(a_texcoord1.x*15.9375)*0.0625)
+#endif
 
 void main() {
   #ifdef INSTANCING

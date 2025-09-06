@@ -26,6 +26,7 @@
 
   Remember to rebuild the shader after making changes.
 */
+#define 1_21_100
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES

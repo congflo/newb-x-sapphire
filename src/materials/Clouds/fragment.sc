@@ -12,7 +12,7 @@ uniform vec4 FogColor;
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
   #define V_CLOUD_DETAIL 2.8
-  #define V_CLOUD_HEIGHT 1.1
+  #define V_CLOUD_HEIGHT 1.0
 
 float newhash(vec3 p)  // replace this by something better
 {
@@ -42,7 +42,7 @@ highp float fbm(vec3 p, float t, float rain) {
   float amp = 0.5;
   p.xz += 0.025*t;
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
-    f += amp * noise3D(p + t*0.01);
+    f += amp * noise3D(p + t*0.02);
     p *= V_CLOUD_DETAIL;
     p.y += 0.1;
     amp *= mix(0.465, 0.35, rain);
