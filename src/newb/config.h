@@ -48,7 +48,7 @@
 //#define NL_CLOUD_SHADOW       // [toggle] cloud shadow (simple clouds only)
 
 /* Sun/moon light color on terrain */
-#define NL_MORNING_SUN_COL vec3(0.9,0.4,0.0)*0.7
+#define NL_MORNING_SUN_COL pow(vec3(0.9,0.5,0.0)*0.5, vec3_splat(1.3)) 
 #define NL_NOON_SUN_COL    vec3(1.0,1.0,0.99)
 #define NL_NIGHT_SUN_COL   vec3(0.28,0.37,0.56)
 
@@ -73,13 +73,13 @@
 #define NL_DAY_HORIZON_COL   vec3(0.9, 0.98, 1.0)*2.0
 #define NL_NIGHT_ZENITH_COL  vec3(0.0,0.05,0.1)*0.25
 #define NL_NIGHT_HORIZON_COL vec3(0.0,0.25,0.5)*1.5
-#define NL_RAIN_ZENITH_COL   vec3(0.4,0.5,0.5)*0.7
-#define NL_RAIN_HORIZON_COL  vec3(0.8,0.9,0.9)*0.9
+#define NL_RAIN_ZENITH_COL   vec3(0.4,0.52,0.5)*0.5
+#define NL_RAIN_HORIZON_COL  vec3(0.8,0.92,0.9)*0.9
 #define NL_END_ZENITH_COL    vec3(0.0,0.03,0.05)
 #define NL_END_HORIZON_COL   vec3(0.0,0.21,0.829)
-#define NL_DAWN_ZENITH_COL   vec3(0.28,0.3,0.17)*0.35
-#define NL_DAWN_HORIZON_COL  vec3(4.0,0.5,0.0)*1.5
-#define NL_DAWN_EDGE_COL     vec3(1.0,1.0,1.0)
+#define NL_DAWN_ZENITH_COL   vec3(0.25,0.4,0.2)*0.25
+#define NL_DAWN_HORIZON_COL  mix(vec3_splat(dot(pow(vec3(4.0,0.6,0.0), vec3_splat(1.3)),vec3(0.21, 0.71, 0.08))), pow(vec3(4.0,0.8,0.0), vec3_splat(1.3)), 1.4)
+#define NL_DAWN_EDGE_COL     vec3(1.0, 1.0, 1.0)
 
 /* Rainbow */
 //#define NL_RAINBOW         // [toggle] enable rainbow in sky

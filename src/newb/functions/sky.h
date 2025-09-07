@@ -95,17 +95,13 @@ vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
 }
 
 // sunrise/sunset bloom
-vec3 getSunBloom(vec3 viewDir, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
-  float factor = FOG_COLOR.r/(0.01 + length(FOG_COLOR));
-  factor *= factor;
-  factor *= factor;
-
+float sunBloom(vec3 viewDir, vec3 FogColor) {
+  vec3 tod = timeofday(FogColor);    
+  float time = tod.y;
   float spread = smoothstep(1.0, 0.0, abs(viewDir.z))*(smoothstep(1.0,0.0,abs(viewDir.y)));
   spread *= spread;
   float sunBloom = length(spread);
-  vec3 morningcol = NL_MORNING_SUN_COL;
-  
-  return morningcol*horizonEdgeCol*(pow(sunBloom,3.0)*pow(max(FOG_COLOR.r-FOG_COLOR.b, 0.0), 2.0));
+  return sunBloom*time;
 }
 
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
@@ -159,7 +155,7 @@ vec3 nlRenderSky(nl_skycolor skycol, nl_environment env, vec3 viewDir, vec3 FOG_
       } else 
     #endif
     if (!env.nether) {
-      sky += getSunBloom(viewDir, skycol.horizonEdge, FOG_COLOR);
+      sky +=  skycol.horizon*sunBloom(viewDir, FOG_COLOR);
     }
   }
 

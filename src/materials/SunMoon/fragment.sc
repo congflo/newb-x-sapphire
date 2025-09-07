@@ -41,7 +41,7 @@ void main() {
       color.rgb += g*MOON_BLOOM*max(0.0, night);
     } else {
       uv = 0.5 + 10.0*v_pos.xz;
-      color.rgb += g*vec3(1.0,0.85,0.672)*skycol.horizon*0.1*mix(1.0, 0.1, dusk);
+      color.rgb += g*mix(vec3(1.0,0.85,0.672), vec3_splat(0.0), dusk)*skycol.horizon*0.1*max(0.0, day);
     }
 
     if (max(abs(v_pos.x),abs(v_pos.z)) < 0.5/10.0) {

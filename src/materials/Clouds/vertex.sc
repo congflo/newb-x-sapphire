@@ -43,7 +43,7 @@ void main() {
       worldPos = mul(model, vec4(pos, 1.0)).xyz;
       
 
-      color.rgb = mix(mix(skycol.horizonEdge,mix(skycol.horizonEdge, skycol.zenith, 0.5), dusk),skycol.zenith,smoothstep(0.0, 0.4, a_position.y))* 1.0 - 0.5*rain;
+      color.rgb = mix(mix(skycol.horizon,mix(skycol.horizon, skycol.zenith, 0.5), dusk),skycol.zenith,smoothstep(0.0, 0.4, a_position.y))* 1.0 - 0.5*rain;
       color.rgb = colorCorrection(color.rgb);
       float cloudFade = smoothstep(6.5,0.0,length((worldPos.xyz)*vec3(0.01,0.005,0.01)));
       color.a = mix(NL_CLOUD0_OPACITY,0.1,smoothstep(0.0, 0.4, a_position.y))*cloudFade;
@@ -94,7 +94,7 @@ void main() {
         worldPos.xz *= 10.0;
         v_fogColor = FogColor.rgb;
         v_color1 = vec4(skycol.zenith, rain);
-        v_color2 = vec4(skycol.horizonEdge, ViewPositionAndTime.w);
+        v_color2 = vec4(skycol.horizon, ViewPositionAndTime.w);
         color = vec4(worldPos, fade);
       #endif 
     #endif
@@ -118,7 +118,7 @@ void main() {
     v_fogColor = FogColor.rgb;
     v_color0 = vec4(worldPos, h*h);
     v_color1 = vec4(skycol.zenith, rain);
-    v_color2 = vec4(skycol.horizonEdge, ViewPositionAndTime.w);
+    v_color2 = vec4(skycol.horizon, ViewPositionAndTime.w);
     gl_Position = apos;
   #endif
 }

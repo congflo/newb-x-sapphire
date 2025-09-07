@@ -123,8 +123,8 @@ diffuse.rgb = normalmap;
     specular += specular*specular*specular*specular;
     
     specular *= max(FogColor.r-FogColor.b, 0.0);
-    specular *= max(0.0,1.0)*(1.0-cave);
-    vec3 sunrefl = 4.0*skycol.horizon * specular * specular * specular;
+    specular *= max(0.0,1.0-cave);
+    vec3 sunrefl = 4.0*mix(skycol.horizonEdge, skycol.zenith, 0.5) * specular * specular * specular;
     sunrefl += sunrefl;
  
   #if defined(TRANSPARENT) && !(defined(SEASONS) || defined(RENDER_AS_BILLBOARDS))
@@ -136,7 +136,10 @@ diffuse.rgb = normalmap;
     diffuse.a = 1.0;
   #endif
   if(v_extra.b > 0.9){
-  color.rgb = mix(mix(skycolor,v_refl.rgb, 1.0),v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
+  color.rgb = mix(skycolor,v_refl.rgb, 1.0);
+  if(!env.end || !env.underwater){
+  color.rgb = mix(color.rgb,v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
+  }
   color.rgb += sunrefl*v_refl.a*(1.0-cave);
   }
   diffuse.rgb *= color.rgb;
@@ -144,7 +147,7 @@ diffuse.rgb = normalmap;
   #ifndef ALPHA_TEST 
   diffuse.rgb += glow;
   #endif
-
+ 
     
  vec3 torchColor;
    if (env.underwater) {
