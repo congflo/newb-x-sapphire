@@ -163,7 +163,7 @@
 
 /*Realistic 3D clouds settings*/
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
-  #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
+  #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
   #define V_CLOUD_DETAIL 2.8
   #define V_CLOUD_HEIGHT 1.0
   
