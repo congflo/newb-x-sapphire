@@ -149,7 +149,7 @@ diffuse.rgb = normalmap;
   
   shadowmap *= mix(1.0,0.0,env.rainFactor);
   shadowmap *= mix(1.0,0.0,uvl.x);
-  shadowmap *= mix(1.0, 0.5, night);
+  shadowmap *= mix(1.0, 0.5, night*(1.0-cave));
   diffuse.rgb *= 1.0-0.3*shadowmap;
 
 if ((!env.nether && !env.end) || !gl_FrontFacing) {
