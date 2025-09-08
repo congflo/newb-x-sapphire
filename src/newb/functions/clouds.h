@@ -50,8 +50,7 @@ float cloudDf(sampler2D cloudTex, vec3 pos, float rain, vec2 boxiness) {
     texture2DLod(cloudTex, (p0+vec2(1.0,1.0))*0.01, 0).r, 
     texture2DLod(cloudTex, (p0+vec2(0.0,1.0))*0.01, 0).r
   );
-  r = smoothstep(0.6-0.5*rain, 0.8-0.5*rain*rain, r); // rain transition
- 
+  r = smoothstep(0.7-0.15*rain, 0.9-0.25*rain*rain, r); // rain transition
   float n = mix(mix(r.x,r.y,u.x), mix(r.w,r.z,u.x), u.y);
 
   // round y

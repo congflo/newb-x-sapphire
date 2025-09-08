@@ -49,7 +49,6 @@ float rain = detectRain(FogAndDistanceControl.xyz);
 float time = ViewPositionAndTime.w;
   vec3 viewDir = normalize(v_worldPos);
  // viewDir.y = -viewDir.y;
- // viewDir = 
   float day = pow(max(min(1.0 - FogColor.r * 1.2, 1.0), 0.0), 0.4);
   float night = pow(max(min(1.0 - FogColor.r * 1.5, 1.0), 0.0), 1.2);
   float dusk = max(FogColor.r - FogColor.b, 0.0);
@@ -69,28 +68,8 @@ float time = ViewPositionAndTime.w;
   #endif
   
   float shadowmap = smoothstep(0.875, 0.855, pow(uvl.y,2.0));
-  shadowmap *= mix(1.0,0.0,env.rainFactor);
-  shadowmap *= mix(1.0,0.0,uvl.x);
-  shadowmap *= mix(1.0, 0.5, night);
-  diffuse.rgb *= 1.0-0.3*shadowmap;
   
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
-
-
-
-if ((!env.nether && !env.end) || !gl_FrontFacing) {
-  float dirfac = abs(normal.x);
-  dirfac *= mix(1.0, 0.0, smoothstep(0.875, 0.855, pow(uvl.y,2.0)));
-  dirfac *= mix(1.0,0.0, uvl.x);
-  if (!env.underwater) {
-  dirfac *= mix(1.0, 0.0, env.rainFactor);
-  }
-#if NL_CLOUD_TYPE == 0
-dirfac *= 0.0;
-#endif
-
-diffuse.rgb *= 1.0-0.25*dirfac;
-}
 
 vec3 shift = diffuse.rgb;
 const vec2 oc = vec2(1.0, -1.0)*0.00175;
@@ -113,19 +92,6 @@ diffuse.rgb = normalmap;
   lightTint = mix(lightTint.bbb, lightTint*lightTint, 0.35 + 0.65*v_lightmapUV.y*v_lightmapUV.y*v_lightmapUV.y);
 
   color.rgb *= lightTint;
-
- float watershadow = smoothstep(0.800, 0.760, pow(uvl.y,2.0));
- vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
-    
-    float specular = smoothstep(SUN_REFL, 0.0, abs(viewDir.z));
-    specular *= specular*smoothstep(0.6,1.0,abs(viewDir.x));
-    specular *= specular;
-    specular += specular*specular*specular*specular;
-    
-    specular *= max(FogColor.r-FogColor.b, 0.0);
-    specular *= max(0.0,1.0-cave);
-    vec3 sunrefl = 4.0*mix(skycol.horizonEdge, skycol.zenith, 0.5) * specular * specular * specular;
-    sunrefl += sunrefl;
  
   #if defined(TRANSPARENT) && !(defined(SEASONS) || defined(RENDER_AS_BILLBOARDS))
     if (v_extra.b > 0.9) {
@@ -136,7 +102,28 @@ diffuse.rgb = normalmap;
     diffuse.a = 1.0;
   #endif
   if(v_extra.b > 0.9){
+  
+  shadowmap = smoothstep(0.8325, 0.7925, pow(uvl.y,2.0));
+ 
+ vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
+
+    float specular = smoothstep(SUN_REFL, 0.0, abs(viewDir.z));
+    specular *= specular*smoothstep(0.6,1.0,abs(viewDir.x));
+    specular *= specular;
+    specular += specular*specular*specular*specular;
+    
+    specular *= max(FogColor.r-FogColor.b, 0.0);
+    specular *= max(0.0,1.0-cave);
+    vec3 sunrefl = 4.0*mix(skycol.horizonEdge, skycol.zenith, 0.5) * specular * specular * specular;
+    sunrefl += sunrefl;
+    
   color.rgb = mix(skycolor,v_refl.rgb, 1.0);
+#ifdef NL_SHOOTING_STAR
+    color.rgb += v_refl.a*NL_SHOOTING_STAR*nlRenderShootingStar(viewDir, FogColor.rgb, ViewPositionAndTime.w)*(1.0-smoothstep(0.8325, 0.7925, pow(uvl.y,2.0)));
+#endif
+#ifdef NL_GALAXY_STARS
+    color.rgb += v_refl.a*NL_GALAXY_STARS*nlRenderGalaxy(viewDir, FogColor.rgb, env, ViewPositionAndTime.w)*max(0.0,1.0)*night*(1.0-smoothstep(0.8325, 0.7925, pow(uvl.y,2.0)));
+#endif
   if(!env.end || !env.underwater){
   color.rgb = mix(color.rgb,v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
   }
@@ -160,6 +147,25 @@ diffuse.rgb = normalmap;
     torchColor = NL_OVERWORLD_TORCH_COL;
   }
   
+  shadowmap *= mix(1.0,0.0,env.rainFactor);
+  shadowmap *= mix(1.0,0.0,uvl.x);
+  shadowmap *= mix(1.0, 0.5, night);
+  diffuse.rgb *= 1.0-0.3*shadowmap;
+
+if ((!env.nether && !env.end) || !gl_FrontFacing) {
+  float dirfac = abs(normal.x);
+  dirfac *= mix(1.0, 0.0, smoothstep(0.875, 0.855, pow(uvl.y,2.0)));
+  dirfac *= mix(1.0,0.0, uvl.x);
+  if (!env.underwater) {
+  dirfac *= mix(1.0, 0.0, env.rainFactor);
+  }
+#if NL_CLOUD_TYPE == 0
+dirfac *= 0.0;
+#endif
+
+diffuse.rgb *= 1.0-0.25*dirfac;
+}
+
   if (v_extra.b > 0.9) {
   // old code for later use
   
@@ -189,7 +195,7 @@ diffuse.rgb = normalmap;
     diffuse.rgb += NL_GODRAY*fogColor.rgb * godray;
     //fogColor.a = mix(fogColor.a, 1.0, godray);
   #endif
-  
+
   diffuse.rgb = mix(diffuse.rgb, fogColor.rgb, fogColor.a);
      
   diffuse.rgb = colorCorrection(diffuse.rgb);

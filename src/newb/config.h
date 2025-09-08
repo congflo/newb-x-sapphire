@@ -27,7 +27,7 @@
   Remember to rebuild the shader after making changes.
 */
 
-//#define NEW_VERSION_SUPPORT
+#define NEW_VERSION_SUPPORT
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -137,10 +137,10 @@
 #define NL_CLOUD1_OPACITY 0.8              // 0.0 invisible ~ 1.0 opaque
 
 /* Rounded cloud settings */
-#define NL_CLOUD2_THICKNESS 2.6      // 0.5 slim ~ 5.0 fat
-#define NL_CLOUD2_RAIN_THICKNESS 2.7 // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_THICKNESS 3.0      // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_RAIN_THICKNESS 3.1 // 0.5 slim ~ 5.0 fat
 #define NL_CLOUD2_STEPS 9            // 3 low quality ~ 16 high quality
-#define NL_CLOUD2_SCALE vec2_splat(0.03)     // 0.003 large ~ 0.3 tiny
+#define NL_CLOUD2_SCALE vec2_splat(0.035)     // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_SHAPE vec2(0.6, 0.6)       // 0.0 round ~ 1.0 box
 #define NL_CLOUD2_DENSITY 100.0       // 1.0 blurry ~ 100.0 sharp
 #define NL_CLOUD2_VELOCITY 1.5       // 0.0 static ~ 4.0 very fast
@@ -170,12 +170,12 @@
   #define V_CLOUD_HEIGHT 1.0
   
 /* Aurora settings */
-#define NL_AURORA 3.0           // [toggle] 0.4 dim ~ 4.0 very bright
+#define NL_AURORA 3.5           // [toggle] 0.4 dim ~ 4.0 very bright
 #define NL_AURORA_VELOCITY 0.05 // 0.0 static ~ 0.3 very fast
-#define NL_AURORA_SCALE 0.07    // 0.002 large ~ 0.4 tiny
-#define NL_AURORA_WIDTH 0.2    // 0.04 thin line ~ 0.4 thick lines
-#define NL_AURORA_COL1 vec3(0.0,0.75,1.0)*1.75
-#define NL_AURORA_COL2 vec3(0.13,0.3,0.77)*1.75
+#define NL_AURORA_SCALE 0.06    // 0.002 large ~ 0.4 tiny
+#define NL_AURORA_WIDTH 0.25    // 0.04 thin line ~ 0.4 thick lines
+#define NL_AURORA_COL1 vec3(0.0,0.75,1.0)*1.95
+#define NL_AURORA_COL2 vec3(0.13,0.3,0.77)*1.95
 
 
 /* Shooting star */
