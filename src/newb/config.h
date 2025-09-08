@@ -140,18 +140,20 @@
 #define NL_CLOUD2_THICKNESS 2.6      // 0.5 slim ~ 5.0 fat
 #define NL_CLOUD2_RAIN_THICKNESS 2.7 // 0.5 slim ~ 5.0 fat
 #define NL_CLOUD2_STEPS 9            // 3 low quality ~ 16 high quality
-#define NL_CLOUD2_SCALE vec2(0.027, 0.027)     // 0.003 large ~ 0.3 tiny
+#define NL_CLOUD2_SCALE vec2_splat(0.03)     // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_SHAPE vec2(0.6, 0.6)       // 0.0 round ~ 1.0 box
 #define NL_CLOUD2_DENSITY 100.0       // 1.0 blurry ~ 100.0 sharp
 #define NL_CLOUD2_VELOCITY 1.5       // 0.0 static ~ 4.0 very fast
 
-//#define NL_CLOUD2_LAYER2                      // [toggle] extra cloud layer
-#define NL_CLOUD2_LAYER2_OFFSET 143.0           // 30.0 near ~ 300.0 very high
-#define NL_CLOUD2_LAYER2_THICKNESS 2.1          // 0.7 slim ~ 5.0 fat
-#define NL_CLOUD2_LAYER2_RAIN_THICKNESS 2.3     // 0.7 slim ~ 5.0 fat
+//
+
+#define NL_CLOUD2_LAYER2                      // [toggle] extra cloud layer
+#define NL_CLOUD2_LAYER2_OFFSET 240.0           // 30.0 near ~ 300.0 very high
+#define NL_CLOUD2_LAYER2_THICKNESS 3.4          // 0.7 slim ~ 5.0 fat
+#define NL_CLOUD2_LAYER2_RAIN_THICKNESS 3.5     // 0.7 slim ~ 5.0 fat
 #define NL_CLOUD2_LAYER2_STEPS 7                // 3 low quality ~ 16 high quality
-#define NL_CLOUD2_LAYER2_SCALE vec2(0.03, 0.03) // 0.003 large ~ 0.3 tiny
-#define NL_CLOUD2_LAYER2_SHAPE vec2(0.9, 0.9)   // 0.0 round ~ 1.0 box vec2(horizontal shape, vertical shape)
+#define NL_CLOUD2_LAYER2_SCALE vec2(0.025, 0.025) // 0.003 large ~ 0.3 tiny
+#define NL_CLOUD2_LAYER2_SHAPE vec2(0.6, 0.6)   // 0.0 round ~ 1.0 box vec2(horizontal shape, vertical shape)
 #define NL_CLOUD2_LAYER2_DENSITY 100.0           // 1.0 blurry ~ 100.0 sharp
 #define NL_CLOUD2_LAYER2_VELOCITY 1.5           // 0.0 static ~ 4.0 very fast
 
@@ -161,6 +163,12 @@
 #define NL_CLOUD3_SHADOW 0.75             // 0.1 subtle ~ 0.7 dark
 #define NL_CLOUD3_SHADOW_OFFSET 1.0      // 0.05 minimal ~ 1.0 large
 
+/*Realistic 3D clouds settings*/
+  #define V_CLOUD_STEPS 6 //affect performance, recommend 8
+  #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
+  #define V_CLOUD_DETAIL 2.8
+  #define V_CLOUD_HEIGHT 1.0
+  
 /* Aurora settings */
 #define NL_AURORA 3.0           // [toggle] 0.4 dim ~ 4.0 very bright
 #define NL_AURORA_VELOCITY 0.05 // 0.0 static ~ 0.3 very fast
@@ -208,6 +216,7 @@
 #define NL_WEATHER_SPECK 0.6         // [toggle] 0.0 vanilla texture ~ 1.0 soft speck
 #define NL_WEATHER_RAIN_SLANT 4.0    // 1.0 minimal ~ 8.0 violent
 #define NL_WEATHER_PARTICLE_SIZE 1.0 // 0.5 tiny ~ 4.0 large
+#define NL_WEATHER_PARTICLE_OPACITY 0.5 // 0.0 invisible ~ 1.0 opaque
 
 /* Lava effects */
 #define NL_LAVA_NOISE            // [toggle] darken lava in certain regions

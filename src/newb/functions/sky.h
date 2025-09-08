@@ -101,7 +101,7 @@ float sunBloom(vec3 viewDir, vec3 FogColor) {
   float spread = smoothstep(1.0, 0.0, abs(viewDir.z))*(smoothstep(1.0,0.0,abs(viewDir.y)));
   spread *= spread;
   float sunBloom = length(spread);
-  return sunBloom*time;
+  return pow(sunBloom, 2.0)*time;
 }
 
 vec3 renderEndSky(vec3 horizonCol, vec3 zenithCol, vec3 viewDir, float t) {
