@@ -246,7 +246,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
 
        float scattering = smoothstep(0.0, 0.9, heightNorm);
        float night = pow(max(min(1.0 - FogColor.r * 1.5, 1.0), 0.0), 1.2);
-        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(mix(0.8,0.8,dusk), 0.0, night)) +horizon) , mix(horizon, zenith, mix(1.0, 0.8, night))*mix(1.0,0.8, dusk), 1.0-scattering);
+        vec3 cloudColor = mix(0.5*(mix(horizon, zenith, mix(mix(0.8,1.0,dusk), 0.0, night)) +horizon) , mix(horizon, zenith, mix(1.0, 0.8, night))*mix(1.0,0.8, dusk), 1.0-scattering);
 
         cloudAccum += cloudColor * alpha;
         alphaAccum += alpha;
