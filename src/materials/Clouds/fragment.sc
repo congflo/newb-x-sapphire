@@ -49,7 +49,7 @@ void main() {
     #if NL_CLOUD_TYPE == 2
       color = renderCloudsRounded(s_CloudTexture, vDir, v_color0.xyz, v_color1.w, v_color2.w, v_color2.rgb, v_color1.rgb, NL_CLOUD_PARAMS(_), FogColor.rgb);
       float cloudFade = smoothstep(0.0,1.0,exp(-0.15*length((v_color0.xyz)*vec3(0.01,0.005,0.01))));
-      float cloudFade2 = smoothstep(0.0,1.0,exp(-0.2*length((v_color0.xyz)*vec3(0.01,0.005,0.01))));
+      float cloudFade2 = smoothstep(0.0,1.0,exp(-0.25*length((v_color0.xyz)*vec3(0.01,0.005,0.01))));
       
       #ifdef NL_CLOUD2_LAYER2
         vec2 parallax = vDir.xz / abs(vDir.y) * NL_CLOUD2_LAYER2_OFFSET;
@@ -107,7 +107,7 @@ void main() {
 
       color.a *= smoothstep(0.0, 0.6, vDir.y);
     #else
-    color = vec4_splat(0.0);
+    color = vec4_splat(0.0); 
     vec3 wpos = vDir/abs(vDir.y);
     float fade = smoothstep(50.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.2,  vDir.y);
     color = VLClouds(normalize(v_color0.xyz), FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);

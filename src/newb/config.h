@@ -27,7 +27,7 @@
   Remember to rebuild the shader after making changes.
 */
 
-#define NEW_VERSION_SUPPORT
+//#define NEW_VERSION_SUPPORT
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -137,23 +137,21 @@
 #define NL_CLOUD1_OPACITY 0.8              // 0.0 invisible ~ 1.0 opaque
 
 /* Rounded cloud settings */
-#define NL_CLOUD2_THICKNESS 3.0      // 0.5 slim ~ 5.0 fat
-#define NL_CLOUD2_RAIN_THICKNESS 3.1 // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_THICKNESS 3.2      // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_RAIN_THICKNESS 3.5 // 0.5 slim ~ 5.0 fat
 #define NL_CLOUD2_STEPS 9            // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_SCALE vec2_splat(0.035)     // 0.003 large ~ 0.3 tiny
-#define NL_CLOUD2_SHAPE vec2(0.6, 0.6)       // 0.0 round ~ 1.0 box
+#define NL_CLOUD2_SHAPE vec2_splat(0.5)       // 0.0 round ~ 1.0 box
 #define NL_CLOUD2_DENSITY 100.0       // 1.0 blurry ~ 100.0 sharp
-#define NL_CLOUD2_VELOCITY 1.5       // 0.0 static ~ 4.0 very fast
-
-//
+#define NL_CLOUD2_VELOCITY 1.25       // 0.0 static ~ 4.0 very fast
 
 #define NL_CLOUD2_LAYER2                      // [toggle] extra cloud layer
 #define NL_CLOUD2_LAYER2_OFFSET 240.0           // 30.0 near ~ 300.0 very high
-#define NL_CLOUD2_LAYER2_THICKNESS 3.4          // 0.7 slim ~ 5.0 fat
-#define NL_CLOUD2_LAYER2_RAIN_THICKNESS 3.5     // 0.7 slim ~ 5.0 fat
+#define NL_CLOUD2_LAYER2_THICKNESS 3.9          // 0.7 slim ~ 5.0 fat
+#define NL_CLOUD2_LAYER2_RAIN_THICKNESS 4.2     // 0.7 slim ~ 5.0 fat
 #define NL_CLOUD2_LAYER2_STEPS 7                // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_LAYER2_SCALE vec2(0.025, 0.025) // 0.003 large ~ 0.3 tiny
-#define NL_CLOUD2_LAYER2_SHAPE vec2(0.6, 0.6)   // 0.0 round ~ 1.0 box vec2(horizontal shape, vertical shape)
+#define NL_CLOUD2_LAYER2_SHAPE vec2_splat(0.5)   // 0.0 round ~ 1.0 box vec2(horizontal shape, vertical shape)
 #define NL_CLOUD2_LAYER2_DENSITY 100.0           // 1.0 blurry ~ 100.0 sharp
 #define NL_CLOUD2_LAYER2_VELOCITY 1.5           // 0.0 static ~ 4.0 very fast
 
@@ -165,7 +163,7 @@
 
 /*Realistic 3D clouds settings*/
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
-  #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
+  #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
   #define V_CLOUD_DETAIL 2.8
   #define V_CLOUD_HEIGHT 1.0
   

@@ -204,7 +204,7 @@ highp float fbm(vec3 p, float t, float rain) {
   float f = 0.0;
   float amp = 0.5;
   p.xz += 0.025*t;
-  for (int i = 0; i < V_CLOUD_DETAIL_QUALITY; i++) {
+  for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
     f += amp * noise3D(p + t*vec3(0.05, 0.05, 0.0));
     p *= V_CLOUD_DETAIL;
     p.y += 0.1;
@@ -271,8 +271,8 @@ vec4 renderAurora(vec3 p, float t, float rain, vec3 FOG_COLOR) {
   float d2 = sin(p.z*0.1 + 1.0*sin(d0 + d1*2.0) + d1*2.0 + d0*1.0);
   d0 *= d0; d1 *= d1; d2 *= d2;
   d2 = d0/(1.0 + d2/NL_AURORA_WIDTH);
-
-  float mask = (1.0-0.8*rain)*max(1.0 - 4.0*max(FOG_COLOR.b, FOG_COLOR.g), 0.0);
+   
+  float mask = (1.0-0.8*rain)*max(1.0 - 4.0*max(FOG_COLOR.b, FOG_COLOR.g), 0.0)*pow(max(min(1.0 - FOG_COLOR.r * 1.5, 1.0), 0.0), 1.2);
   return vec4(NL_AURORA*mix(NL_AURORA_COL1,NL_AURORA_COL2,d1),1.0)*d2*mask;
 }
 #endif
