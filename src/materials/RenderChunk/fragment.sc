@@ -144,7 +144,7 @@ diffuse.rgb = normalmap;
   }
   diffuse.rgb *= color.rgb;
   
-  #ifndef ALPHA_TEST 
+  #if !(defined(ALPHA_TEST) || defined(RENDER_AS_BILLBOARDS) || defined(SEASONS))
   diffuse.rgb += glow;
   #endif
  

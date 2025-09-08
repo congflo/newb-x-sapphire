@@ -77,8 +77,9 @@
 #define NL_RAIN_HORIZON_COL  vec3(0.8,0.92,0.9)*0.9
 #define NL_END_ZENITH_COL    vec3(0.0,0.03,0.05)
 #define NL_END_HORIZON_COL   vec3(0.0,0.21,0.829)
-#define NL_DAWN_ZENITH_COL   vec3(0.25,0.4,0.2)*0.25
-#define NL_DAWN_HORIZON_COL  mix(vec3_splat(dot(pow(vec3(4.0,0.6,0.0), vec3_splat(1.3)),vec3(0.21, 0.71, 0.08))), pow(vec3(4.0,0.8,0.0), vec3_splat(1.3)), 1.2)
+#define NL_DAWN_ZENITH_COL   vec3(0.225,0.4,0.2)*0.25
+#define DAWN_HORIZON         pow(vec3(4.0,0.65,0.0), vec3_splat(1.3))
+#define NL_DAWN_HORIZON_COL  mix(vec3_splat(dot(DAWN_HORIZON, vec3(0.21, 0.71, 0.08))), DAWN_HORIZON, 1.15)
 #define NL_DAWN_EDGE_COL     vec3(1.0, 1.0, 1.0)
 
 /* Rainbow */

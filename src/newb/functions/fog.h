@@ -20,7 +20,8 @@ float nlRenderGodRayIntensity(vec3 cPos, vec3 worldPos, float t, vec2 uv1, float
   float a = -1.6; // or -ve
   float cosa = cos(a); float sina = sin(a); 
   // offset wPos (only works upto 16 blocks)
-  vec3 wpos = worldPos;
+  vec3 wpos = normalize(worldPos);
+  wpos /= wpos.y;
   worldPos.yz = mul(worldPos.yz, mtxFromRows(vec2(cosa, sina), vec2(-sina, cosa)));
   worldPos.xz *= 0.8;
   // offset wPos (only works upto 16 blocks)
