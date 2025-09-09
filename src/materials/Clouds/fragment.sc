@@ -108,11 +108,13 @@ void main() {
       color.a *= smoothstep(0.0, 0.6, vDir.y);
     #else
     color = vec4_splat(0.0); 
-    vec3 wpos = vDir/abs(vDir.y);
-    float fade = smoothstep(50.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.2,  vDir.y);
+    vec3 viewDir = vDir;
+    viewDir.y = pow(abs(viewDir.y), 0.8);
+    vec3 wpos = viewDir/abs(viewDir.y);
+    float fade = smoothstep(50.0, 0.0,length(wpos.xz)) * smoothstep(0.0, 0.2,  viewDir.y);
     color = VLClouds(normalize(v_color0.xyz), FogAndDistanceControl, FogColor, ViewPositionAndTime.w, v_color2.rgb, v_color1.rgb);
     color.a *= fade;
-    if(wpos.y <= 0.0){discard;}
+    if(vDir.y < 0.0){discard;}
     #endif
     
     color.rgb = colorCorrection(color.rgb);

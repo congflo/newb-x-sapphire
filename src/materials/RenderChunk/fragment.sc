@@ -147,24 +147,23 @@ diffuse.rgb = normalmap;
     torchColor = NL_OVERWORLD_TORCH_COL;
   }
   
-  shadowmap *= mix(1.0,0.0,env.rainFactor);
-  shadowmap *= mix(1.0,0.0,uvl.x);
-  shadowmap *= mix(1.0, 0.5, night*(1.0-cave));
+  if(!env.underwater){
+  shadowmap *= 1.0-env.rainFactor;
+  }
+  shadowmap *= 1.0-uvl.x;
+  shadowmap *= 1.0 - 0.5*night*(1.0-cave);
+if ((!env.nether && !env.end) || !gl_FrontFacing) {
+#if NL_CLOUD_TYPE != 0
+  shadowmap += 0.85*abs(normal.x);
+#endif
+}
   diffuse.rgb *= 1.0-0.3*shadowmap;
 
-if ((!env.nether && !env.end) || !gl_FrontFacing) {
-  float dirfac = abs(normal.x);
-  dirfac *= mix(1.0, 0.0, smoothstep(0.875, 0.855, pow(uvl.y,2.0)));
-  dirfac *= mix(1.0,0.0, uvl.x);
-  if (!env.underwater) {
-  dirfac *= mix(1.0, 0.0, env.rainFactor);
-  }
-#if NL_CLOUD_TYPE == 0
-dirfac *= 0.0;
-#endif
 
-diffuse.rgb *= 1.0-0.25*dirfac;
-}
+  
+
+
+
 
   if (v_extra.b > 0.9) {
   // old code for later use
@@ -173,7 +172,7 @@ diffuse.rgb *= 1.0-0.25*dirfac;
     diffuse.rgb += sunrefl*v_refl.a;
   */
   
-    diffuse.rgb += torchColor*pow(v_lightmapUV.x * 1.2, 7.0);
+    diffuse.rgb += torchColor*pow(v_lightmapUV.x * 1.2, 7.0)*max(0.0,1.0-day*(1.0-env.rainFactor));
     
   } else if (v_refl.a > 0.0) {
     // reflective effect - only on xz plane
