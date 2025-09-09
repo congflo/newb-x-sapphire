@@ -67,7 +67,8 @@ float time = ViewPositionAndTime.w;
     diffuse.rgb *= mix(vec3(1.0,1.0,1.0), texture2D(s_SeasonsTexture, v_color1.xy).rgb * 2.0, v_color1.z);
   #endif
   
-  float shadowmap = smoothstep(0.875, 0.855, pow(uvl.y,2.0));
+  vec2 shadowstep = v_extra.b > 0.9 ? vec2(0.815, 0.795) : vec2(0.875, 0.855);
+  float shadowmap = smoothstep(shadowstep.x, shadowstep.y, pow(uvl.y,2.0));
   
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
 
@@ -102,8 +103,6 @@ diffuse.rgb = normalmap;
     diffuse.a = 1.0;
   #endif
   if(v_extra.b > 0.9){
-  
-  shadowmap = smoothstep(0.8325, 0.7925, pow(uvl.y,2.0));
  
  vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
 
@@ -118,16 +117,17 @@ diffuse.rgb = normalmap;
     sunrefl += sunrefl;
     
   color.rgb = mix(skycolor,v_refl.rgb, 1.0);
+    viewDir.y = -viewDir.y;
 #ifdef NL_SHOOTING_STAR
-    color.rgb += v_refl.a*NL_SHOOTING_STAR*nlRenderShootingStar(viewDir, FogColor.rgb, ViewPositionAndTime.w)*(1.0-smoothstep(0.8325, 0.7925, pow(uvl.y,2.0)));
+    color.rgb += 8.0*v_refl.rgb*NL_SHOOTING_STAR*nlRenderShootingStar(viewDir, FogColor.rgb, ViewPositionAndTime.w)*(1.0-shadowmap);
 #endif
 #ifdef NL_GALAXY_STARS
-    color.rgb += v_refl.a*NL_GALAXY_STARS*nlRenderGalaxy(viewDir, FogColor.rgb, env, ViewPositionAndTime.w)*max(0.0,1.0)*night*(1.0-smoothstep(0.8325, 0.7925, pow(uvl.y,2.0)));
+    color.rgb += 8.0*v_refl.rgb*NL_GALAXY_STARS*nlRenderGalaxy(viewDir, FogColor.rgb, env, ViewPositionAndTime.w)*max(0.0,1.0)*night*(1.0-shadowmap);
 #endif
   if(!env.end || !env.underwater){
   color.rgb = mix(color.rgb,v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
   }
-  color.rgb += sunrefl*v_refl.a*(1.0-cave);
+  color.rgb += sunrefl*v_refl.rgb*(1.0-cave);
   }
   diffuse.rgb *= color.rgb;
   
@@ -172,7 +172,7 @@ if ((!env.nether && !env.end) || !gl_FrontFacing) {
     diffuse.rgb += sunrefl*v_refl.a;
   */
   
-    diffuse.rgb += torchColor*pow(v_lightmapUV.x * 1.2, 7.0)*max(0.0,1.0-day*(1.0-env.rainFactor));
+    diffuse.rgb += torchColor*pow(v_lightmapUV.x * 1.2, 7.0)*max(0.0,1.0)*night*(1.0-env.rainFactor);
     
   } else if (v_refl.a > 0.0) {
     // reflective effect - only on xz plane

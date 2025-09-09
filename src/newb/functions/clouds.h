@@ -255,7 +255,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         if (alphaAccum > 0.98 && viewDir.y < 0.9) break;
     }
 
-      vec4 clouds = vec4(mix(0.5*(mix(horizon, zenith, 0.1)+horizon), cloudAccum, alphaAccum), alphaAccum);
+      vec4 clouds = vec4(mix(0.5*(mix(horizon, zenith, mix(0.1,1.2, dusk))+horizon), cloudAccum, alphaAccum), alphaAccum);
       clouds.rgb *= 1.0-0.1*rain;
       return clouds;
 }
