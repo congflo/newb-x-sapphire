@@ -68,7 +68,7 @@ void main() {
       #endif
       
       color.a *= v_color0.a;
-      color.a *= 0.85;
+      color.a *= 0.9;
       color.a *= cloudFade;
       /*
       if(vDir.y >= 0.0){
