@@ -217,8 +217,8 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     time *= 0.5;
     viewDir.y = pow(abs(viewDir.y), 0.9);
     float dusk = max(FogColor.r - FogColor.b, 0.0);
-    float cloudBase = 0.8;
-    float cloudTop = 1.2;
+    float cloudBase = 0.75;
+    float cloudTop = 1.25;
     int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
 
