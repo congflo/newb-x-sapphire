@@ -172,7 +172,7 @@ if ((!env.nether && !env.end) || !gl_FrontFacing) {
     diffuse.rgb += sunrefl*v_refl.a;
   */
     float waterlight = pow(v_lightmapUV.x * 1.2, 7.0);
-    waterlight *= 1.0-cave*mix(mix(1.0, 0.0, night), 0.0, env.rainFactor);
+    waterlight *= mix(1.0,0.0,1.0-cave*mix(mix(1.0, 0.0, night), 0.0, env.rainFactor));
     diffuse.rgb += torchColor*waterlight;
     
   } else if (v_refl.a > 0.0) {

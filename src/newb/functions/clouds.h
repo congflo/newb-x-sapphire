@@ -203,7 +203,7 @@ vec4 renderCloudCirrus(vec2 p, float t, float rain, vec3 horizonCol, vec3 zenith
 highp float fbm(vec3 p, float t, float rain) {
   float f = 0.0;
   float amp = 0.5;
-  p.xz += 0.025*t;
+  p.xz += 0.01*t;
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
     f += amp * noise3D(p + vec3(0.05, 0.05, 0.0)*t);
     p *= V_CLOUD_DETAIL;
@@ -214,7 +214,7 @@ highp float fbm(vec3 p, float t, float rain) {
 
 
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
-    time *= 0.25;
+    time *= 0.5;
     viewDir.y = pow(abs(viewDir.y), 0.9);
     float dusk = max(FogColor.r - FogColor.b, 0.0);
     float cloudBase = 0.8;
