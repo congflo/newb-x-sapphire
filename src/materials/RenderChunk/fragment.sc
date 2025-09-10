@@ -171,8 +171,9 @@ if ((!env.nether && !env.end) || !gl_FrontFacing) {
   /*  diffuse.rgb += v_refl.rgb*v_refl.a;
     diffuse.rgb += sunrefl*v_refl.a;
   */
-  
-    diffuse.rgb += torchColor*pow(v_lightmapUV.x * 1.2, 7.0)*max(0.0,1.0)*night*(1.0-env.rainFactor);
+    float waterlight = pow(v_lightmapUV.x * 1.2, 7.0);
+    waterlight *= 1.0-cave*mix(mix(1.0, 0.0, night), 0.0, env.rainFactor);
+    diffuse.rgb += torchColor*waterlight;
     
   } else if (v_refl.a > 0.0) {
     // reflective effect - only on xz plane
