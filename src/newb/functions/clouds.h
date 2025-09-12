@@ -229,7 +229,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
         float height = cloudBase + stepSize * (float(i)+jitter);
-        float t = V_CLOUD_HEIGHT*height / abs(mix(0.01, 0.0, smoothstep(0.0,0.5,viewDir.y)) + viewDir.y);
+        float t = V_CLOUD_HEIGHT*height / abs(mix(0.025, 0.0, smoothstep(0.0,0.5,viewDir.y)) + viewDir.y);
         vec3 pos = viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + 70.5, height*0.75);
@@ -242,7 +242,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
         float density = 1.5*clamp(base - 0.65, 0.0, 1.0);
         density = pow(density, 3.0) * heightFactor;
 
-        float alpha = 1.0 - smoothstep(0.028, 0.005, density);
+        float alpha = 1.0 - smoothstep(0.03, 0.005, density);
         alpha *= (1.0 - alphaAccum);
 
        float scattering = smoothstep(0.0, 0.9, heightNorm);

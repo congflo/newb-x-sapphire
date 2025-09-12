@@ -18,7 +18,7 @@
     "windows": {
       "macros": [],
       "platforms": [   
-        "Direct3D_SM50",
+     
         "Direct3D_SM60",
         "Direct3D_SM65"
     ]
