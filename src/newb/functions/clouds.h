@@ -207,15 +207,15 @@ highp float fbm(vec3 p, float t, float rain) {
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
     f += amp * noise3D(p + vec3(0.05, 0.05, 0.0)*t);
     p *= V_CLOUD_DETAIL;
-    amp *= mix(0.54, 0.44, rain) ;
+    amp *= mix(0.55, 0.45, rain) ;
   }
-  return smoothstep(0.0,0.86,exp(-length(f)) + 0.1/6.0);
+  return smoothstep(0.0,0.9,exp(-length(f)) + 0.1/6.0);
 }
 
 
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
     time *= 0.5;
-    viewDir.y = pow(abs(viewDir.y), 0.9);
+    viewDir.y = pow(abs(viewDir.y), 0.85);
     float dusk = max(FogColor.r - FogColor.b, 0.0);
     float cloudBase = 0.75;
     float cloudTop = 1.25;
@@ -229,7 +229,7 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
         float height = cloudBase + stepSize * (float(i)+jitter);
-        float t = V_CLOUD_HEIGHT*height / abs(mix(0.025, 0.0, smoothstep(0.0,0.5,viewDir.y)) + viewDir.y);
+        float t = V_CLOUD_HEIGHT*height / abs(mix(0.01, 0.0, smoothstep(0.0,0.5,viewDir.y)) + viewDir.y);
         vec3 pos = viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + 70.5, height*0.75);

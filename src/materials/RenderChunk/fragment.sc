@@ -135,6 +135,11 @@ diffuse.rgb = normalmap;
   diffuse.rgb += glow;
   #endif
  
+if ((!env.nether && !env.end) || !gl_FrontFacing) {
+#if NL_CLOUD_TYPE != 0
+  shadowmap += 0.85*abs(normal.x)*(1.0-shadowmap);
+#endif
+}
     
  vec3 torchColor;
    if (env.underwater) {
@@ -152,11 +157,6 @@ diffuse.rgb = normalmap;
   }
   shadowmap *= 1.0-uvl.x;
   shadowmap *= 1.0 - 0.5*night*(1.0-cave);
-if ((!env.nether && !env.end) || !gl_FrontFacing) {
-#if NL_CLOUD_TYPE != 0
-  shadowmap += 0.85*abs(normal.x);
-#endif
-}
   diffuse.rgb *= 1.0-0.3*shadowmap;
 
 
