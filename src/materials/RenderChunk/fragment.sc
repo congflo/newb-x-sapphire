@@ -67,7 +67,7 @@ float time = ViewPositionAndTime.w;
     diffuse.rgb *= mix(vec3(1.0,1.0,1.0), texture2D(s_SeasonsTexture, v_color1.xy).rgb * 2.0, v_color1.z);
   #endif
   
-  vec2 shadowstep = v_extra.b > 0.9 ? vec2(0.815, 0.795) : vec2(0.875, 0.855);
+  vec2 shadowstep = v_extra.b > 0.9 ? vec2(0.815, 0.775) : vec2(0.875, 0.835);
   float shadowmap = smoothstep(shadowstep.x, shadowstep.y, pow(uvl.y,2.0));
   
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
@@ -137,7 +137,7 @@ diffuse.rgb = normalmap;
  
 if ((!env.nether && !env.end) || !gl_FrontFacing) {
 #if NL_CLOUD_TYPE != 0
-  shadowmap += 0.85*abs(normal.x)*(1.0-shadowmap);
+  shadowmap += 0.9*abs(normal.x)*(1.0-shadowmap);
 #endif
 }
     
@@ -157,7 +157,7 @@ if ((!env.nether && !env.end) || !gl_FrontFacing) {
   }
   shadowmap *= 1.0-uvl.x;
   shadowmap *= 1.0 - 0.5*night*(1.0-cave);
-  diffuse.rgb *= 1.0-0.3*shadowmap;
+  diffuse.rgb *= 1.0-0.4*shadowmap;
 
 
   

@@ -27,7 +27,7 @@
   Remember to rebuild the shader after making changes.
 */
 
-#define NEW_VERSION_SUPPORT
+//#define NEW_VERSION_SUPPORT
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -49,7 +49,7 @@
 
 /* Sun/moon light color on terrain */
 #define NL_MORNING_SUN_COL pow(vec3(0.9,0.5,0.0)*0.5, vec3_splat(1.3)) 
-#define NL_NOON_SUN_COL    vec3(1.0,1.0,0.99)
+#define NL_NOON_SUN_COL    vec3(1.0,1.0,0.99)*0.98
 #define NL_NIGHT_SUN_COL   vec3(0.28,0.37,0.56)
 
 /* Ambient light on terrain (light that is added everywhere) */
