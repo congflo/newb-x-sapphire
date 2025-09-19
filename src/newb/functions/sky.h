@@ -44,7 +44,7 @@ vec3 getSkyFactors(vec3 FOG_COLOR) {
 
 vec3 getZenithCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
   vec3 tod = timeofday(FOG_COLOR);
-  vec3 zenithCol = mix(mix(NL_DAY_ZENITH_COL*mix(1.0, 0.0, tod.y), NL_DAWN_ZENITH_COL, tod.y), NL_NIGHT_ZENITH_COL*max(0.0, tod.x), tod.x);
+  vec3 zenithCol = mix(mix(NL_DAY_ZENITH_COL*mix(1.0, 0.75, tod.y), NL_DAWN_ZENITH_COL, tod.y), NL_NIGHT_ZENITH_COL*max(0.0, tod.x), tod.x);
   zenithCol = mix(zenithCol, mix(zenithCol, NL_RAIN_ZENITH_COL*fs.z*17.0, 0.9), rainFactor);
 
   return zenithCol;

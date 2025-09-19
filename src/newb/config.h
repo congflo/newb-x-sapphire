@@ -77,9 +77,9 @@
 #define NL_RAIN_HORIZON_COL  vec3(0.8,0.92,0.9)*0.9
 #define NL_END_ZENITH_COL    vec3(0.0,0.03,0.05)
 #define NL_END_HORIZON_COL   vec3(0.0,0.21,0.829)
-#define NL_DAWN_ZENITH_COL   vec3(0.225,0.4,0.2)*0.25
-#define DAWN_HORIZON         pow(vec3(4.0,0.65,0.0), vec3_splat(1.3))
-#define NL_DAWN_HORIZON_COL  mix(vec3_splat(dot(DAWN_HORIZON, vec3(0.21, 0.71, 0.08))), DAWN_HORIZON, 1.15)
+#define NL_DAWN_ZENITH_COL   pow(vec3(0.225,0.4,0.2)*0.25, vec3_splat(1.3))
+#define DAWN_HORIZON         pow(vec3(4.0,0.85,0.0), vec3_splat(1.3))
+#define NL_DAWN_HORIZON_COL  mix(vec3_splat(dot(DAWN_HORIZON, vec3(0.21, 0.71, 0.08))), DAWN_HORIZON, 1.25)
 #define NL_DAWN_EDGE_COL     vec3(1.0, 1.0, 1.0)
 
 /* Rainbow */
@@ -139,7 +139,7 @@
 /* Rounded cloud settings */
 #define NL_CLOUD2_THICKNESS 3.2      // 0.5 slim ~ 5.0 fat
 #define NL_CLOUD2_RAIN_THICKNESS 3.5 // 0.5 slim ~ 5.0 fat
-#define NL_CLOUD2_STEPS 9            // 3 low quality ~ 16 high quality
+#define NL_CLOUD2_STEPS 16            // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_SCALE vec2_splat(0.035)     // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_SHAPE vec2_splat(0.5)       // 0.0 round ~ 1.0 box
 #define NL_CLOUD2_DENSITY 100.0       // 1.0 blurry ~ 100.0 sharp
@@ -149,7 +149,7 @@
 #define NL_CLOUD2_LAYER2_OFFSET 240.0           // 30.0 near ~ 300.0 very high
 #define NL_CLOUD2_LAYER2_THICKNESS 3.9          // 0.7 slim ~ 5.0 fat
 #define NL_CLOUD2_LAYER2_RAIN_THICKNESS 4.2     // 0.7 slim ~ 5.0 fat
-#define NL_CLOUD2_LAYER2_STEPS 7                // 3 low quality ~ 16 high quality
+#define NL_CLOUD2_LAYER2_STEPS 16                // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_LAYER2_SCALE vec2(0.025, 0.025) // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_LAYER2_SHAPE vec2_splat(0.5)   // 0.0 round ~ 1.0 box vec2(horizontal shape, vertical shape)
 #define NL_CLOUD2_LAYER2_DENSITY 100.0           // 1.0 blurry ~ 100.0 sharp
@@ -163,7 +163,7 @@
 
 /*Realistic 3D clouds settings*/
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
-  #define V_CLOUD_DETAIL_QUALITY 3 //affect performance 
+  #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
   #define V_CLOUD_DETAIL 2.5
   #define V_CLOUD_HEIGHT 1.0
   
