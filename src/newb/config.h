@@ -137,20 +137,20 @@
 #define NL_CLOUD1_OPACITY 0.8              // 0.0 invisible ~ 1.0 opaque
 
 /* Rounded cloud settings */
-#define NL_CLOUD2_THICKNESS 3.2      // 0.5 slim ~ 5.0 fat
-#define NL_CLOUD2_RAIN_THICKNESS 3.5 // 0.5 slim ~ 5.0 fat
-#define NL_CLOUD2_STEPS 16            // 3 low quality ~ 16 high quality
+#define NL_CLOUD2_THICKNESS 3.5      // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_RAIN_THICKNESS 3.8 // 0.5 slim ~ 5.0 fat
+#define NL_CLOUD2_STEPS 10            // 3 low quality ~ 16 high quality
 #define NL_CLOUD2_SCALE vec2_splat(0.035)     // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_SHAPE vec2_splat(0.5)       // 0.0 round ~ 1.0 box
 #define NL_CLOUD2_DENSITY 100.0       // 1.0 blurry ~ 100.0 sharp
 #define NL_CLOUD2_VELOCITY 1.25       // 0.0 static ~ 4.0 very fast
 
 #define NL_CLOUD2_LAYER2                      // [toggle] extra cloud layer
-#define NL_CLOUD2_LAYER2_OFFSET 240.0           // 30.0 near ~ 300.0 very high
-#define NL_CLOUD2_LAYER2_THICKNESS 3.9          // 0.7 slim ~ 5.0 fat
-#define NL_CLOUD2_LAYER2_RAIN_THICKNESS 4.2     // 0.7 slim ~ 5.0 fat
-#define NL_CLOUD2_LAYER2_STEPS 16                // 3 low quality ~ 16 high quality
-#define NL_CLOUD2_LAYER2_SCALE vec2(0.025, 0.025) // 0.003 large ~ 0.3 tiny
+#define NL_CLOUD2_LAYER2_OFFSET 220.0           // 30.0 near ~ 300.0 very high
+#define NL_CLOUD2_LAYER2_THICKNESS 3.6          // 0.7 slim ~ 5.0 fat
+#define NL_CLOUD2_LAYER2_RAIN_THICKNESS 4.0     // 0.7 slim ~ 5.0 fat
+#define NL_CLOUD2_LAYER2_STEPS 8                // 3 low quality ~ 16 high quality
+#define NL_CLOUD2_LAYER2_SCALE vec2_splat(0.03) // 0.003 large ~ 0.3 tiny
 #define NL_CLOUD2_LAYER2_SHAPE vec2_splat(0.5)   // 0.0 round ~ 1.0 box vec2(horizontal shape, vertical shape)
 #define NL_CLOUD2_LAYER2_DENSITY 100.0           // 1.0 blurry ~ 100.0 sharp
 #define NL_CLOUD2_LAYER2_VELOCITY 1.5           // 0.0 static ~ 4.0 very fast

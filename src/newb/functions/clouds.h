@@ -50,7 +50,7 @@ float cloudDf(sampler2D cloudTex, vec3 pos, float rain, vec2 boxiness) {
     texture2DLod(cloudTex, (p0+vec2(1.0,1.0))*0.01, 0.0).r, 
     texture2DLod(cloudTex, (p0+vec2(0.0,1.0))*0.01, 0.0).r
   );
-  r = smoothstep(0.7-0.15*rain, 0.9-0.25*rain*rain, r); // rain transition
+  r = smoothstep(0.8-0.25*rain, 1.0-0.35*rain*rain, r); // rain transition
   float n = mix(mix(r.x,r.y,u.x), mix(r.w,r.z,u.x), u.y);
 
   // round y
@@ -215,7 +215,6 @@ highp float fbm(vec3 p, float t, float rain) {
 
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
     time *= 0.5;
-    viewDir.y = pow(abs(viewDir.y), 0.85);
     float dusk = max(FogColor.r - FogColor.b, 0.0);
     float cloudBase = 0.75;
     float cloudTop = 1.5;
