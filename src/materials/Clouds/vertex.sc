@@ -55,6 +55,7 @@ void main() {
       if (isL2) {
         #ifdef NL_CLOUD0_MULTILAYER
           worldPos.y += 60.0;
+          color.a *= 0.85;
         #else
           worldPos = vec3(0.0,0.0,0.0);
           color.a = 0.0;
