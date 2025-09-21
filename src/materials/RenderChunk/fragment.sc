@@ -106,7 +106,7 @@ diffuse.rgb = normalmap;
  
  vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
 
-    float specular = smoothstep(SUN_REFL, 0.0, abs(viewDir.z));
+    float specular = smoothstep(0.8, 0.0, pow(abs(viewDir.z),0.8));
     specular *= specular*smoothstep(0.6,1.0,abs(viewDir.x));
     specular *= specular;
     specular += specular*specular*specular*specular;

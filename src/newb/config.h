@@ -27,7 +27,7 @@
   Remember to rebuild the shader after making changes.
 */
 
-//#define NEW_VERSION_SUPPORT
+#define NEW_VERSION_SUPPORT
 
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
@@ -124,9 +124,9 @@
 
 /* Vanilla cloud settings - make sure to remove clouds.png when using this */
 /* Vanilla cloud settings - make sure to remove clouds.png when using this */
-#define NL_CLOUD0_THICKNESS 2.3      // 0.5 slim ~ 8.0 fat
-#define NL_CLOUD0_RAIN_THICKNESS 2.5 // 0.5 slim ~ 8.0 fat
-#define NL_CLOUD0_OPACITY 0.75        // 0.0 invisible ~ 1.0 opaque
+#define NL_CLOUD0_THICKNESS 2.0      // 0.5 slim ~ 8.0 fat
+#define NL_CLOUD0_RAIN_THICKNESS 2.25 // 0.5 slim ~ 8.0 fat
+#define NL_CLOUD0_OPACITY 0.85        // 0.0 invisible ~ 1.0 opaque
 #define NL_CLOUD0_MULTILAYER         // [toggle] extra cloud layer
 
 /* Soft cloud settings */
@@ -164,7 +164,7 @@
 /*Realistic 3D clouds settings*/
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
-  #define V_CLOUD_DETAIL 2.5
+  #define V_CLOUD_DETAIL 2.2
   #define V_CLOUD_HEIGHT 1.0
   
 /* Aurora settings */
@@ -196,6 +196,7 @@
 #define SUN_BLOOM  vec3(0.25,0.24,0.245)
 #define MOON_BLOOM  vec3(0.15,0.25,0.3)*1.5
 #define SUN_REFL 0.5
+//#define ROUND_SUNMOON
 
 /* Fake godrays during sunrise/sunset */
 //#define NL_GODRAY 0.4 // [toggle] 0.1 subtle ~ 0.8 strong
@@ -244,14 +245,9 @@
 #ifdef VOLUMETRIC_CLOUDS
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 4
- #undef NL_SUNMOON_SIZE
- #define NL_SUNMOON_SIZE 0.7
- #undef SUN_BLOOM
- #undef MOON_BLOOM
  #undef SUN_REFL
  #define SUN_REFL 0.3
- #define SUN_BLOOM  vec3(0.3,0.25,0.2)*1.45 
- #define MOON_BLOOM  vec3(0.15,0.25,0.3)*1.35
+ #define ROUND_SUNMOON
  #undef NL_AURORA
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
@@ -260,14 +256,11 @@
  #define NORMALMAP
  #undef NL_CLOUD_TYPE
  #define NL_CLOUD_TYPE 4
- #undef NL_SUNMOON_SIZE
- #define NL_SUNMOON_SIZE 0.7
  #undef SUN_BLOOM
  #undef MOON_BLOOM
  #undef SUN_REFL
  #define SUN_REFL 0.3
- #define SUN_BLOOM  vec3(0.3,0.25,0.2)*1.45 
- #define MOON_BLOOM  vec3(0.15,0.25,0.3)*1.35
+ #define ROUND_SUNMOON
  #undef NL_AURORA
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
