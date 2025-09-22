@@ -216,7 +216,7 @@ highp float fbm(vec3 p, float t, float rain) {
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
     time *= 0.5;
     float dusk = max(FogColor.r - FogColor.b, 0.0);
-    float cloudBase = 0.9;
+    float cloudBase = 1.12;
     float cloudTop = 1.5;
     int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
