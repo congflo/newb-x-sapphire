@@ -216,8 +216,8 @@ highp float fbm(vec3 p, float t, float rain) {
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
     time *= 0.5;
     float dusk = max(FogColor.r - FogColor.b, 0.0);
-    float cloudBase = 1.0;
-    float cloudTop = 1.5;
+    float cloudBase = 0.7;
+    float cloudTop = 1.3;
     int steps = V_CLOUD_STEPS;
     float stepSize = (cloudTop - cloudBase) / float(steps);
 
@@ -228,20 +228,20 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
         float height = cloudBase + stepSize * (float(i)+jitter);
-        float t = V_CLOUD_HEIGHT*height / abs(0.1 + viewDir.y);
+        float t = V_CLOUD_HEIGHT*height / abs(viewDir.y*0.8);
         vec3 pos = viewDir * t ;
 
         vec3 noisePos = vec3(pos.xz + 70.5, height*0.85);
         float base = fbm(noisePos, time, rain);
 
         float heightNorm = (height - cloudBase) / (cloudTop - cloudBase);
-        float heightFactor = smoothstep(0.0, 1.0, heightNorm) * (1.0 - smoothstep(0.7, 1.0, heightNorm));
+        float heightFactor = smoothstep(0.0, 1.0, heightNorm) * (1.0 - smoothstep(0.8, 1.0, heightNorm));
         heightFactor *= smoothstep(0.2, 0.6, base);
 
         float density = 1.5*clamp(base - 0.6, 0.0, 1.0);
         density = pow(density, 3.0) * heightFactor;
 
-        float alpha = 1.0 - smoothstep(0.03, 0.003, density);
+        float alpha = 1.0 - smoothstep(0.03, 0.005, density);
         alpha *= (1.0 - alphaAccum);
 
        float scattering = smoothstep(0.0, 0.9, heightNorm);
