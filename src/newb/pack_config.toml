@@ -10,7 +10,7 @@ description = '''
 authors = ["amg, devendrn"]
 url = "https://devendrn.github.io/newb-shader/"
 uuid = "aa12aaba-56de-4ae0-9fd5-b113fe730398" # Use https://www.uuidgenerator.net/version4
-materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "SunMoon", "Weather", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint"]
+materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "SunMoon", "Weather", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint", "LegacyCubemap"]
 
 [info] 
 copyright = '''
@@ -46,14 +46,14 @@ Vanilla Cloud
 
 [[subpack]]
 define = "VOLUMETRIC_CLOUDS_NORMALMAP"
-materials = ["Clouds", "RenderChunk", "SunMoon"]
+materials = ["Clouds", "RenderChunk", "SunMoon", "LegacyCubemap"]
 description = '''
 Volumetric Clouds + Fake normalmapping
 '''
 
 [[subpack]]
 define = "VOLUMETRIC_CLOUDS"
-materials = ["Clouds", "RenderChunk", "SunMoon"]
+materials = ["Clouds", "RenderChunk", "SunMoon", "LegacyCubemap"]
 description = '''
 Volumetric Clouds
 '''

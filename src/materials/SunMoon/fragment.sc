@@ -17,7 +17,7 @@ $input v_texcoord0, v_pos, v_uvpos
 
 float sunmoonshape(vec3 pos, vec4 Fog){
   float radius = 500.0*length(pos.xz);
-  float round = exp(4.0-radius*0.65);
+  float round = exp(3.0-radius*0.5);
   float bloom = length(exp(1.0-radius*0.05));
   round += bloom*mix(1.0, 0.0, pow(max(Fog.r - Fog.b, 0.0), 0.5));
   

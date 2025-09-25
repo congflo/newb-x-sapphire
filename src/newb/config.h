@@ -163,8 +163,8 @@
 
 /*Realistic 3D clouds settings*/
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
-  #define V_CLOUD_DETAIL_QUALITY 4 //affect performance 
-  #define V_CLOUD_DETAIL 2.2
+  #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
+  #define V_CLOUD_DETAIL 2.25
   #define V_CLOUD_HEIGHT 1.0
   
 /* Aurora settings */
@@ -193,9 +193,6 @@
 /* Sun/Moon */
 #define NL_SUNMOON_ANGLE 30.0 // [toggle] 0.0 no tilt ~ 90.0 tilt of 90 degrees
 #define NL_SUNMOON_SIZE 0.8     // 0.3 tiny ~ 4.0 massive
-#define SUN_BLOOM  vec3(0.25,0.24,0.245)
-#define MOON_BLOOM  vec3(0.15,0.25,0.3)*1.5
-#define SUN_REFL 0.5
 //#define ROUND_SUNMOON
 
 /* Fake godrays during sunrise/sunset */
