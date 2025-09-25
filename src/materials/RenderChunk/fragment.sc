@@ -67,7 +67,10 @@ float time = ViewPositionAndTime.w;
     diffuse.rgb *= mix(vec3(1.0,1.0,1.0), texture2D(s_SeasonsTexture, v_color1.xy).rgb * 2.0, v_color1.z);
   #endif
   
-  vec2 shadowstep = v_extra.b > 0.9 ? vec2(0.815, 0.775) : vec2(0.875, 0.835);
+  vec2 shadowstep = vec2(0.875, 0.835);
+  #ifndef NEW_VERSION_SUPPORT
+  if(v_extra.b > 0.9) shadowstep -= 0.06;
+  #endif
   float shadowmap = smoothstep(shadowstep.x, shadowstep.y, pow(uvl.y,2.0));
   
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
