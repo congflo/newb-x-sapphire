@@ -157,7 +157,7 @@ if ((!env.nether && !env.end) || !gl_FrontFacing) {
   }
   shadowmap *= 1.0-uvl.x;
   shadowmap *= 1.0 - 0.5*night*(1.0-cave);
-  diffuse.rgb *= 1.0-0.4*shadowmap;
+  diffuse.rgb *= 1.0-0.5*shadowmap;
 
 
   
