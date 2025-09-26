@@ -169,10 +169,10 @@
 /* Aurora settings */
 #define NL_AURORA 3.5           // [toggle] 0.4 dim ~ 4.0 very bright
 #define NL_AURORA_VELOCITY 0.05 // 0.0 static ~ 0.3 very fast
-#define NL_AURORA_SCALE 0.06    // 0.002 large ~ 0.4 tiny
-#define NL_AURORA_WIDTH 0.25    // 0.04 thin line ~ 0.4 thick lines
-#define NL_AURORA_COL1 vec3(0.0,0.75,1.0)*1.95
-#define NL_AURORA_COL2 vec3(0.13,0.3,0.77)*1.95
+#define NL_AURORA_SCALE 0.04    // 0.002 large ~ 0.4 tiny
+#define NL_AURORA_WIDTH 0.18    // 0.04 thin line ~ 0.4 thick lines
+#define NL_AURORA_COL1 vec3(0.0,0.5,1.0)*2.0
+#define NL_AURORA_COL2 vec3(0.1,0.3,0.97)*1.5
 
 
 /* Shooting star */
