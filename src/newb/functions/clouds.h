@@ -207,9 +207,9 @@ highp float fbm(vec3 p, float t, float rain) {
   for (int i = 0; i <= V_CLOUD_DETAIL_QUALITY; i++) {
     f += amp * noise3D(p + vec3(0.05, 0.05, 0.0)*t);
     p *= V_CLOUD_DETAIL;
-    amp *= mix(0.5, 0.55, rain) ;
+    amp *= mix(0.525, 0.55, rain) ;
   }
-  return smoothstep(0.0,0.99,f + 0.2/4.0);
+  return smoothstep(0.0,1.0,f + 0.2/5.5);
 }
 
 vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float time, vec3 horizon, vec3 zenith) {
@@ -227,10 +227,10 @@ vec4 VLClouds(vec3 viewDir, vec4 FogAndDistanceControl, vec4 FogColor, float tim
     float jitter = fract(sin(dot(viewDir.xz, vec2_splat(332.233))) * 87758.5453);
     for (int i = 0; i <= steps ; i++) {
         float height = cloudBase + stepSize * (float(i)+jitter);
-        float t = V_CLOUD_HEIGHT*height / abs(0.1+viewDir.y);
+        float t = V_CLOUD_HEIGHT*height / abs(0.09+viewDir.y);
         vec3 pos = viewDir * t ;
 
-        vec3 noisePos = vec3(pos.xz + 50.5, height*0.8);
+        vec3 noisePos = vec3(pos.xz + 5.5, height*0.8);
         float base = fbm(noisePos, time, rain);
 
         float heightNorm = (height - cloudBase) / (cloudTop - cloudBase);
