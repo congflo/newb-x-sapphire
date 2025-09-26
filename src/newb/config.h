@@ -123,7 +123,6 @@
 #define NL_CLOUD_TYPE 2 // 0:vanilla, 1:soft, 2:rounded, 3:realistic
 
 /* Vanilla cloud settings - make sure to remove clouds.png when using this */
-/* Vanilla cloud settings - make sure to remove clouds.png when using this */
 #define NL_CLOUD0_THICKNESS 2.0      // 0.5 slim ~ 8.0 fat
 #define NL_CLOUD0_RAIN_THICKNESS 2.25 // 0.5 slim ~ 8.0 fat
 #define NL_CLOUD0_OPACITY 0.85        // 0.0 invisible ~ 1.0 opaque
@@ -164,7 +163,7 @@
 /*Realistic 3D clouds settings*/
   #define V_CLOUD_STEPS 6 //affect performance, recommend 8
   #define V_CLOUD_DETAIL_QUALITY 5 //affect performance 
-  #define V_CLOUD_DETAIL 2.8
+  #define V_CLOUD_DETAIL 2.5
   #define V_CLOUD_HEIGHT 1.0
   
 /* Aurora settings */
