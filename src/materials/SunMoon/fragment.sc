@@ -31,7 +31,7 @@ vec4 sunmoon(bool isMoon, vec3 pos, vec3 horizon, vec4 Fog){
   if(isMoon){
   result = vec4(horizon*8.0, 1.5*shape);
   } else {
-  result = vec4(horizon*mix(vec3(1.0,0.75,0.572), vec3_splat(1.0), max(Fog.r - Fog.b, 0.0)), shape);
+  result = vec4(horizon*mix(vec3(1.0,0.75,0.572)*0.5, vec3_splat(1.0), max(Fog.r - Fog.b, 0.0)), shape);
   }
   return result;
 }

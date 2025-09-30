@@ -75,16 +75,13 @@ float time = ViewPositionAndTime.w;
   
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
 
+#ifdef NORMALMAP
 vec3 shift = diffuse.rgb;
 const vec2 oc = vec2(1.0, -1.0)*0.00175;
-vec3 normalmap = shift;
 shift -= texture2D(s_MatTexture, v_texcoord0 + oc*0.13).rgb;
 shift += texture2D(s_MatTexture, v_texcoord0 - oc*0.23).rgb;
 shift += pow(shift, vec3_splat(1.5));
-normalmap = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
-
-#ifdef NORMALMAP
-diffuse.rgb = normalmap;
+diffuse.rgb  = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
 #endif
   
 
@@ -127,11 +124,11 @@ diffuse.rgb = normalmap;
 #ifdef NL_GALAXY_STARS
     color.rgb += 8.0*v_refl.rgb*NL_GALAXY_STARS*nlRenderGalaxy(viewDir, FogColor.rgb, env, ViewPositionAndTime.w)*max(0.0,1.0)*night*(1.0-shadowmap);
 #endif
-  if(!env.end || !env.underwater){
+  color.rgb += sunrefl*v_refl.rgb;
+  if(!env.end || !env.underwater)
   color.rgb = mix(color.rgb,v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
   }
-  color.rgb += sunrefl*v_refl.rgb*(1.0-cave);
-  }
+  
   diffuse.rgb *= color.rgb;
   
   #if !(defined(ALPHA_TEST) || defined(RENDER_AS_BILLBOARDS) || defined(SEASONS))
