@@ -219,7 +219,6 @@
 #define NL_LAVA_NOISE_SPEED 0.04 // 0.0 still ~ 0.1 fast
 
 /* Extra Quality */
-//#define WATER_REFLECTION
 //#define NORMALMAP
 
 /*

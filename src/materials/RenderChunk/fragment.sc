@@ -39,6 +39,12 @@ void main() {
     return;
   #endif
 
+  #if defined(TRANSPARENT) && !(defined(RENDER_AS_BILLBOARDS) || defined(SEASONS))
+  bool water = v_color0.b > 0.3 && v_color0.a < 0.99;
+  #else
+  bool water = false;
+  #endif
+  
 float fogfade = fog_fade(v_worldPos.xyz);
 
 vec2 uvl = v_lightmapUV;
@@ -102,10 +108,9 @@ diffuse.rgb  = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
   #else
     diffuse.a = 1.0;
   #endif
-  if(v_extra.b > 0.9){
+  if(water){
  
  vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
-
     float specular = smoothstep(1.0, 0.0, pow(abs(viewDir.z),0.75));
     specular *= specular*smoothstep(0.6,1.0,abs(viewDir.x));
     specular *= specular;
@@ -117,6 +122,7 @@ diffuse.rgb  = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
     sunrefl += sunrefl;
     
   color.rgb = mix(skycolor,v_refl.rgb, 1.0);
+  
     viewDir.y = -viewDir.y;
 #ifdef NL_SHOOTING_STAR
     color.rgb += 8.0*v_refl.rgb*NL_SHOOTING_STAR*nlRenderShootingStar(viewDir, FogColor.rgb, ViewPositionAndTime.w)*(1.0-shadowmap);
@@ -125,7 +131,7 @@ diffuse.rgb  = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
     color.rgb += 8.0*v_refl.rgb*NL_GALAXY_STARS*nlRenderGalaxy(viewDir, FogColor.rgb, env, ViewPositionAndTime.w)*max(0.0,1.0)*night*(1.0-shadowmap);
 #endif
   color.rgb += sunrefl*v_refl.rgb;
-  if(!env.end || !env.underwater)
+  if(!env.end && !env.underwater)
   color.rgb = mix(color.rgb,v_color0.rgb, cave)*mix(vec3_splat(1.0), texture2D(s_LightMapTexture, v_lightmapUV).xyz, cave);
   }
   
