@@ -78,7 +78,8 @@ float time = ViewPositionAndTime.w;
   if(v_extra.b > 0.9) shadowstep -= 0.06;
   #endif
   float shadowmap = smoothstep(shadowstep.x, shadowstep.y, pow(uvl.y,2.0));
-  
+  if(env.end || env.nether)
+  shadowmap = 0.0;
 highp vec3 normal = normalize(cross(dFdx(v_position),dFdy(v_position)));
 
 #ifdef NORMALMAP
@@ -108,7 +109,7 @@ diffuse.rgb  = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
   #else
     diffuse.a = 1.0;
   #endif
-  if(water){
+  if(v_extra.b > 0.9){
  
  vec3 skycolor = nlRenderSky(skycol, env, viewDir, FogColor.rgb, ViewPositionAndTime.w);
     float specular = smoothstep(1.0, 0.0, pow(abs(viewDir.z),0.75));
@@ -141,7 +142,7 @@ diffuse.rgb  = clamp(diffuse.rgb*0.8 + (diffuse.rgb*shift)*0.2, 0.0, 1.0);
   diffuse.rgb += glow;
   #endif
  
-if ((!env.nether && !env.end) || !gl_FrontFacing) {
+if (!env.nether && !env.end && !gl_FrontFacing) {
 #if NL_CLOUD_TYPE != 0
   shadowmap += 0.9*abs(normal.x)*(1.0-shadowmap);
 #endif

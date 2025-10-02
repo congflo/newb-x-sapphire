@@ -138,7 +138,7 @@ vec3 nlEntityLighting(nl_environment env, vec3 pos, vec4 normal, mat4 world, vec
   if (env.nether) {
     light *= tileLightCol.x*NL_NETHER_AMBIENT*0.5;
   } else if (env.end) {
-    light *= NL_END_AMBIENT;
+    light *= NL_END_AMBIENT*2.0;
   } else if (env.underwater) {
     light += NL_UNDERWATER_BRIGHTNESS;
     light *= mix(normalize(horizonEdgeCol),vec3(1.0,1.0,1.0),tileLightCol.x*0.5);
