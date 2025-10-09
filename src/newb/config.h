@@ -283,5 +283,30 @@
  #undef NL_WATER_CLOUD_REFLECTION
 #endif
 
+#ifdef VANILLA_CLOUD_NORMALMAP
+ #define NORMALMAP
+ #undef NL_GROUND_REFL
+ #undef NL_CLOUD_TYPE
+ #define NL_CLOUD_TYPE 0
+ #undef NL_GROUND_RAIN_WETNESS 
+ #undef NL_GROUND_RAIN_PUDDLES 
+ #define NL_GROUND_RAIN_WETNESS 0.5 
+ #define NL_GROUND_RAIN_PUDDLES 0.5 
+ #undef NL_WATER_BUMP 
+ #define NL_WATER_BUMP 0.04   
+ #undef NL_WATER_WAVE
+ #undef NL_UNDERWATER_WAVE
+ #undef NL_LANTERN_WAVE
+ #undef NL_PLANTS_WAVE
+ #undef NL_MIST_DENSITY    
+ #undef NL_RAIN_MIST_OPACITY 
+ #define NL_MIST_DENSITY 0.2      
+ #define NL_RAIN_MIST_OPACITY 0.2 
+ #undef NL_CLOUDY_FOG 
+ #undef NL_GALAXY_STARS
+ #undef NL_LAVA_NOISE
+ #undef NL_GLOW_LEAK
+ #undef NL_WATER_CLOUD_REFLECTION
+#endif
 
 #endif
