@@ -27,8 +27,6 @@
   Remember to rebuild the shader after making changes.
 */
 
-#define NEW_VERSION_SUPPORT
-
 /* Color correction */
 #define NL_TONEMAP_TYPE 4              // 1:Exponential, 2:Reinhard, 3:Extended Reinhard, 4:ACES
 #define NL_GAMMA 1.35                  // 0.3 low ~ 2.0 high
